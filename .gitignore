@@ -1,16 +1,49 @@
+# Python
 __pycache__/
 *.pyc
-.DS_Store
+*.pyo
 *.egg-info/
+*.egg
+dist/
+build/
+.venv/
+venv/
+env/
 
-# Data files (large, stored externally)
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data files (large, stored externally — see README for download instructions)
 *.parquet
 *.parquet.gzip
 *.nc
 *.nc4
 *.pth
+*.h5
+*.hdf5
+*.csv.gz
 
-# Generated during cycles
+# Generated analysis outputs (reproducible from scripts)
 world_model/current_cycle_context.json
 world_model/analyses/*/figures/*.png
+world_model/analyses/*/figures/*.jpg
 world_model/analyses/*/output.json
+
+# Julia (PySR)
+.julia/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Temporary
+/tmp/
+*.tmp
+*.bak

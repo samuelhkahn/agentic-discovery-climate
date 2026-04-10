@@ -1,17 +1,17 @@
 {
-  "project": "Kosmos-Albedo: AI Scientist for Earth's Albedo Stability",
+  "project": "Agentic Discovery Climate: AI Scientist for Earth's Albedo Stability",
   "version": "0.1.0",
   "current_cycle": 19,
   "status": "idle",
   "created": "2026-04-09",
   "data_paths": {
-    "ceres_parquet_1": "/Users/samuelkahn/Desktop/ClimateAIResearch/CERES_2022-11-09_25176/ceres.parquet.gzip",
-    "ceres_parquet_2": "/Users/samuelkahn/Desktop/ClimateAIResearch/CERES_2022-11-09_25176/ceres1.parquet.gzip",
-    "ceres_netcdf": "/Users/samuelkahn/Desktop/ClimateAIResearch/CERES_2022-11-09_25176/CERES_EBAF-TOA_Edition4.2.1_200003-202503.nc",
-    "zone_weights": "/Users/samuelkahn/Desktop/ClimateAIResearch/ai-albedo-research/zone_weights_lou.txt",
-    "ffnn_checkpoint": "/Users/samuelkahn/Desktop/ClimateAIResearch/ai-albedo-research/albedo_ffnn_5layer_relu_v0_66_terminator_epoch_2_valloss_0.001061013489978769.pth",
-    "merra2_dir": "/Users/samuelkahn/Desktop/ClimateAIResearch/data/MERRA2",
-    "original_notebooks": "/Users/samuelkahn/Desktop/ClimateAIResearch/ai-albedo-research"
+    "ceres_parquet_1": "../data/ceres.parquet.gzip",
+    "ceres_parquet_2": "../data/ceres1.parquet.gzip",
+    "ceres_netcdf": "../data/CERES_EBAF-TOA_Edition4.2.1_200003-202503.nc",
+    "zone_weights": "../data/zone_weights_lou.txt",
+    "ffnn_checkpoint": "../data/albedo_ffnn_5layer_relu_v0_66_terminator.pth",
+    "merra2_dir": "../data/MERRA2",
+    "_note": "Paths are relative to this repo root. See README.md for data download instructions."
   },
   "hypotheses_active": [
     "H001_cloud_buffering",
@@ -22,5 +22,5 @@
   "total_findings": 21,
   "total_literature_items": 0,
   "exploration_coverage": 0.0,
-  "convergence_state": "exploring"
+  "convergence_state": "adversarial_complete"
 }
