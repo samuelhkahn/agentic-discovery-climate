@@ -5,9 +5,9 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "needs_retry",
-        "finding_id": "E005",
-        "result": "inconclusive"
+        "status": "completed",
+        "finding_id": "E021",
+        "result": "supports"
       },
       "H002_invariant_properties": {
         "status": "not_started"
@@ -288,11 +288,11 @@
   },
   "summary": {
     "total_cells": 85,
-    "explored": 6,
+    "explored": 7,
     "not_started": 78,
     "not_applicable": 7,
     "in_progress": 0,
     "completed": 0,
-    "coverage": 0.071
+    "coverage": 0.082
   }
 }

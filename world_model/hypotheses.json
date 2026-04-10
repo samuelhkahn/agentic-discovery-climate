@@ -5,14 +5,15 @@
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
       "status": "supported",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
         "prior_perturbation_caf_surface_albedo",
         "E008",
         "E010",
         "E011",
-        "E013"
+        "E013",
+        "E021"
       ],
       "refuting_evidence": [],
       "testable_predictions": [
@@ -98,6 +99,11 @@
           "cycle": 18,
           "status": "supported",
           "rationale": "After Bonferroni correction: 3 methods survive. After adversarial testing: see cycles 15-17."
+        },
+        {
+          "cycle": 19,
+          "status": "supported",
+          "rationale": "Fixed CCM confirms unidirectional nonlinear causality: cloud\u2192albedo. Overrides adversarial Granger bidirectional finding (linear artifact). Strongest causal evidence for H001."
         }
       ]
     },
