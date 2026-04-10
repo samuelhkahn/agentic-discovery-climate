@@ -1,8 +1,8 @@
 {
   "project": "Kosmos-Albedo: AI Scientist for Earth's Albedo Stability",
   "version": "0.1.0",
-  "current_cycle": 0,
-  "status": "initialized",
+  "current_cycle": 3,
+  "status": "idle",
   "created": "2026-04-09",
   "data_paths": {
     "ceres_parquet_1": "/Users/samuelkahn/Desktop/ClimateAIResearch/CERES_2022-11-09_25176/ceres.parquet.gzip",
@@ -13,9 +13,13 @@
     "merra2_dir": "/Users/samuelkahn/Desktop/ClimateAIResearch/data/MERRA2",
     "original_notebooks": "/Users/samuelkahn/Desktop/ClimateAIResearch/ai-albedo-research"
   },
-  "hypotheses_active": ["H001_cloud_buffering", "H002_invariant_properties", "H003_teleconnections"],
+  "hypotheses_active": [
+    "H001_cloud_buffering",
+    "H002_invariant_properties",
+    "H003_teleconnections"
+  ],
   "hypotheses_resolved": [],
-  "total_findings": 0,
+  "total_findings": 3,
   "total_literature_items": 0,
   "exploration_coverage": 0.0,
   "convergence_state": "exploring"

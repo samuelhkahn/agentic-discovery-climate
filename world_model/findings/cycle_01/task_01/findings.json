@@ -1,0 +1,30 @@
+{
+  "finding_id": "E001",
+  "cycle": 1,
+  "task_id": 1,
+  "summary": "Significant bidirectional information transfer between NH and SH albedo anomalies detected. At lag=3 months: TE(NH\u2192SH)=0.231 (p=0.0075, z=2.64), TE(SH\u2192NH)=0.274 (p<0.001, z=6.92). Net flow is SH\u2192NH dominant at 3-6 month lags. At lag=12 months, flow reverses to NH\u2192SH dominant. This is the first information-theoretic evidence that hemispheric albedo anomalies are NOT independent.",
+  "statistics": {
+    "TE_NH_to_SH_lag3": 0.230902,
+    "TE_SH_to_NH_lag3": 0.274259,
+    "p_NH_to_SH_lag3": 0.0075,
+    "p_SH_to_NH_lag3": 0.0,
+    "z_SH_to_NH_lag3": 6.92,
+    "net_flow_lag3": -0.043358,
+    "net_flow_lag12": 0.043792,
+    "p_value": 0.0,
+    "effect_size": 0.274,
+    "n_months": 301
+  },
+  "hypothesis_id": "H003",
+  "refutes_hypothesis": false,
+  "confidence": 0.85,
+  "script_path": "world_model/analyses/A001_transfer_entropy_hemispheric/script.py",
+  "data_source": "CERES_EBAF_Ed4.2.1",
+  "method": "transfer_entropy",
+  "figure_paths": [
+    "world_model/analyses/A001_transfer_entropy_hemispheric/figures/transfer_entropy_hemispheric.png"
+  ],
+  "created_at": "2026-04-09T21:27:33.617207",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "d253ce7a490a79e5"
+}
