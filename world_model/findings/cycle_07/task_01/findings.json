@@ -1,0 +1,27 @@
+{
+  "finding_id": "E007",
+  "cycle": 7,
+  "task_id": 1,
+  "summary": "Polynomial degree-2 equation achieves R\u00b2=0.94 predicting monthly global albedo from 5 variables. Linear model with all 5 vars: R\u00b2=0.88. Cloud area alone: R\u00b2=0.47. Albedo is highly predictable from simple polynomial relationships \u2014 supports H002.",
+  "statistics": {
+    "r2_poly2": 0.9399,
+    "r2_linear_all": 0.8819,
+    "r2_cloud_area_only": 0.4681,
+    "n_terms_poly2": 21,
+    "n_terms_linear": 6,
+    "p_value": 0.001,
+    "effect_size": 0.94
+  },
+  "hypothesis_id": "H002",
+  "refutes_hypothesis": false,
+  "confidence": 0.8,
+  "script_path": "world_model/analyses/A007_symbolic_regression/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "symbolic_regression",
+  "figure_paths": [
+    "world_model/analyses/A007_symbolic_regression/figures/symbolic_regression.png"
+  ],
+  "created_at": "2026-04-09T22:46:48.516250",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "f98c5c092ba1e1e8"
+}

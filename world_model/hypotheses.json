@@ -5,10 +5,13 @@
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
       "status": "testing",
-      "confidence": 0.6,
+      "confidence": 0.75,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
-        "prior_perturbation_caf_surface_albedo"
+        "prior_perturbation_caf_surface_albedo",
+        "E008",
+        "E010",
+        "E011"
       ],
       "refuting_evidence": [],
       "testable_predictions": [
@@ -67,10 +70,10 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 1,
+        "methods_confirming": 4,
         "methods_refuting": 0,
         "methods_null": 0,
-        "min_methods_for_convergence": 3,
+        "min_methods_for_convergence": 5,
         "data_subsets_tested": 1,
         "min_subsets_for_convergence": 2
       },
@@ -87,12 +90,16 @@
       "name": "Invariant Earth System Properties",
       "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales (physical constants, geometry, water optical properties).",
       "status": "testing",
-      "confidence": 0.4,
+      "confidence": 0.45,
       "source": "Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
-        "prior_shap_latitude_importance"
+        "prior_shap_latitude_importance",
+        "E004",
+        "E007"
       ],
-      "refuting_evidence": [],
+      "refuting_evidence": [
+        "E010"
+      ],
       "testable_predictions": [
         {
           "id": "P005",
@@ -145,11 +152,11 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 0,
-        "methods_refuting": 0,
+        "methods_confirming": 2,
+        "methods_refuting": 1,
         "methods_null": 0,
-        "min_methods_for_convergence": 3,
-        "data_subsets_tested": 0,
+        "min_methods_for_convergence": 5,
+        "data_subsets_tested": 2,
         "min_subsets_for_convergence": 2
       },
       "history": [
@@ -157,6 +164,16 @@
           "cycle": 0,
           "status": "testing",
           "rationale": "SHAP shows latitude importance but no formal invariant properties test conducted"
+        },
+        {
+          "cycle": 4,
+          "status": "testing",
+          "rationale": "Low correlation dimension (1.86) supports invariant constraints. But marginally positive Lyapunov suggests stability requires external mechanism too."
+        },
+        {
+          "cycle": 9,
+          "status": "testing",
+          "rationale": "Linear variance decomposition shows invariant features explain <1% of gridded albedo. But this may reflect linear limitations \u2014 attractor analysis showed low dimensionality (nonlinear constraint)."
         }
       ]
     },
@@ -164,13 +181,16 @@
       "id": "H003",
       "name": "Teleconnections",
       "statement": "Hemispheric albedo symmetry is maintained by spatial teleconnections \u2014 cross-regional and cross-hemispheric correlations in cloud, aerosol, and surface albedo fields that actively couple distant regions.",
-      "status": "testing",
-      "confidence": 0.75,
+      "status": "supported",
+      "confidence": 0.9,
       "source": "Feldman et al. (2026) Nature paper; U-Net analysis",
       "supporting_evidence": [
         "E001",
         "E002",
-        "E003"
+        "E003",
+        "E006",
+        "E009",
+        "E012"
       ],
       "refuting_evidence": [
         "prior_unet_no_regional_control"
@@ -228,10 +248,10 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 2,
+        "methods_confirming": 5,
         "methods_refuting": 1,
         "methods_null": 0,
-        "min_methods_for_convergence": 3,
+        "min_methods_for_convergence": 5,
         "data_subsets_tested": 2,
         "min_subsets_for_convergence": 2
       },
@@ -255,6 +275,21 @@
           "cycle": 3,
           "status": "testing",
           "rationale": "ENSO-conditional analysis reveals coupling is phase-dependent: SH\u2192NH significant only during La Ni\u00f1a (p=0.017). This identifies the MECHANISM: La Ni\u00f1a conditions activate cross-hemispheric information transfer. H003 now has 2 methods + 2 data subsets. Needs 1 more independent method."
+        },
+        {
+          "cycle": 6,
+          "status": "supported",
+          "rationale": "3rd independent method confirms teleconnections. Hub regions in tropical Pacific = ENSO mediation. 3 methods + 2 data subsets = CONVERGENCE CRITERIA MET."
+        },
+        {
+          "cycle": 7,
+          "status": "testing",
+          "rationale": "Convergence threshold raised to 5 independent methods. H003 has 3/5 \u2014 needs 2 more."
+        },
+        {
+          "cycle": 10,
+          "status": "supported",
+          "rationale": "5th independent method (ICA) confirms cross-hemispheric coupling. H003 CONVERGED at 5/5 methods + 2/2 subsets."
         }
       ]
     }

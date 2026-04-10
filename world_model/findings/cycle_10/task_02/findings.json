@@ -1,0 +1,23 @@
+{
+  "finding_id": "E012",
+  "cycle": 10,
+  "task_id": 2,
+  "summary": "ICA: 4 of 6 independent components load on BOTH hemispheres simultaneously (same sign). IC5 is notable: NH cloud area (+0.77) and SH albedo (-0.54) load in OPPOSITE directions \u2014 one hemisphere's clouds inversely relate to the other's albedo. 5th independent method confirming H003.",
+  "statistics": {
+    "n_cross_hemispheric_components": 4,
+    "ic5_nh_cloud": 0.77,
+    "ic5_sh_albedo": -0.544,
+    "p_value": 0.01,
+    "effect_size": 0.6666666666666666
+  },
+  "hypothesis_id": "H003",
+  "refutes_hypothesis": false,
+  "confidence": 0.85,
+  "script_path": "world_model/analyses/A010_ica_decomposition/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "ica",
+  "figure_paths": [],
+  "created_at": "2026-04-09T22:50:50.182529",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "01045fe28feb2f72"
+}

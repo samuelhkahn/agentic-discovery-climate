@@ -5,7 +5,9 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "needs_retry",
+        "finding_id": "E005",
+        "result": "inconclusive"
       },
       "H002_invariant_properties": {
         "status": "not_started"
@@ -52,7 +54,9 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E004",
+        "result": "supports"
       },
       "H003_teleconnections": {
         "status": "not_started"
@@ -84,7 +88,9 @@
         "status": "not_started"
       },
       "H003_teleconnections": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E006",
+        "result": "supports_weakly"
       }
     },
     "bayesian_model_comparison": {
@@ -107,7 +113,9 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E007",
+        "result": "supports"
       },
       "H003_teleconnections": {
         "status": "not_applicable",
@@ -278,11 +286,11 @@
   },
   "summary": {
     "total_cells": 85,
-    "explored": 2,
+    "explored": 5,
     "not_started": 78,
     "not_applicable": 7,
     "in_progress": 0,
     "completed": 0,
-    "coverage": 0.024
+    "coverage": 0.059
   }
 }
