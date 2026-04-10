@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.egg-info/
+
+# Data files (large, stored externally)
+*.parquet
+*.parquet.gzip
+*.nc
+*.nc4
+*.pth
+
+# Generated during cycles
+world_model/current_cycle_context.json
+world_model/analyses/*/figures/*.png
+world_model/analyses/*/output.json

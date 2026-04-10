@@ -1,0 +1,29 @@
+{
+  "papers": [
+    {"id": "L001", "citation": "Stephens et al. (2015) Rev. Geophys.", "title": "The Albedo of Earth", "key_finding": "Global/annual albedo ~29%; comprehensive observational review", "hypotheses": ["H001", "H002"], "quantitative": {"global_albedo": 0.29}},
+    {"id": "L002", "citation": "Loeb et al. (2018) J. Clim.", "title": "CERES EBAF TOA Ed4.0", "key_finding": "Definitive satellite albedo product with uncertainty characterization", "hypotheses": ["H001", "H002", "H003"], "quantitative": {}},
+    {"id": "L003", "citation": "Voigt et al. (2013) J. Clim.", "title": "Observed hemispheric symmetry in reflected SW", "key_finding": "NH and SH reflect nearly identical amounts despite different surfaces", "hypotheses": ["H003"], "quantitative": {}},
+    {"id": "L004", "citation": "Datseris & Stevens (2021) AGU Adv.", "title": "Earth's albedo and its symmetry", "key_finding": "Analysis of symmetry persistence; suggests cloud compensation", "hypotheses": ["H001", "H003"], "quantitative": {}},
+    {"id": "L005", "citation": "Ramanathan et al. (1989) Science", "title": "Cloud-radiative forcing and climate", "key_finding": "ERBE cloud-radiative forcing quantification", "hypotheses": ["H001"], "quantitative": {}},
+    {"id": "L006", "citation": "Minnis et al. (1993) Science", "title": "Pinatubo radiative climate forcing", "key_finding": "Pinatubo increased globally-averaged albedo by 0.007 (2.4%)", "hypotheses": ["H001", "H002"], "quantitative": {"pinatubo_albedo_increase": 0.007, "pinatubo_relative_increase_pct": 2.4}},
+    {"id": "L007", "citation": "Hodnebrog et al. (2024) Commun. Earth Environ.", "title": "Recent aerosol reductions increased energy imbalance", "key_finding": "Aerosol emission reductions affect Earth's energy balance", "hypotheses": ["H001"], "quantitative": {}},
+    {"id": "L008", "citation": "Feldman et al. (2021) GRL", "title": "Sub-diurnal to interannual frequency analysis of reflected SW", "key_finding": "Multi-scale frequency analysis of albedo variability", "hypotheses": ["H003"], "quantitative": {}},
+    {"id": "L009", "citation": "Jian et al. (2020) Clim. Dyn.", "title": "CMIP6 planetary albedo evaluation", "key_finding": "Evaluation of CMIP6 models against satellite observations", "hypotheses": ["H001", "H002"], "quantitative": {}},
+    {"id": "L010", "citation": "Klein & Hall (2015) Curr. Clim. Change Rep.", "title": "Emergent constraints for cloud feedbacks", "key_finding": "Emergent constraints can narrow cloud feedback uncertainty", "hypotheses": ["H001"], "quantitative": {}},
+    {"id": "L011", "citation": "Hakuba et al. (2016) J. Clim.", "title": "Zonal near-constancy of fractional solar absorption", "key_finding": "Fractional solar absorption is nearly constant across latitude zones", "hypotheses": ["H002"], "quantitative": {}},
+    {"id": "L012", "citation": "Jonsson & Bender (2023)", "title": "Persistence and variability of interhemispheric albedo symmetry", "key_finding": "Symmetry persists but with measurable variability", "hypotheses": ["H003"], "quantitative": {}},
+    {"id": "L013", "citation": "Gristey & Feingold (2025) GRL", "title": "SAI would change cloud brightness", "key_finding": "Stratospheric aerosol injection affects cloud radiative properties", "hypotheses": ["H001"], "quantitative": {}},
+    {"id": "L014", "citation": "Stephens (2005) J. Clim.", "title": "Cloud feedbacks in the climate system: critical review", "key_finding": "Cloud feedback remains largest uncertainty in climate sensitivity", "hypotheses": ["H001"], "quantitative": {}},
+    {"id": "L015", "citation": "Feldman, Gristey, Hakuba, Hellinger, Kahn (2026) Nature", "title": "Towards a theory for Earth's albedo stability and hemispheric symmetry", "key_finding": "Framework for hypothesis testing; FFNN+U-Net AI methods; two hypotheses presented", "hypotheses": ["H001", "H002", "H003"], "quantitative": {"ffnn_val_loss": 0.001061}}
+  ],
+  "open_questions": [
+    "Why is albedo approximately 29%?",
+    "Will hemispheric symmetry persist under continued anthropogenic forcing?",
+    "What is the sign and magnitude of cloud feedback?",
+    "Are recent aerosol reductions breaking the symmetry?",
+    "Is marine stratocumulus disproportionately important for stability?",
+    "Will the next major volcanic eruption test/falsify these hypotheses?",
+    "Are there albedo tipping points?",
+    "Will Libera observations reveal unprecedented changes?"
+  ]
+}

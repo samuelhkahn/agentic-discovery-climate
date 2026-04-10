@@ -1,0 +1,99 @@
+{
+  "description": "Tracks which (method × hypothesis) cells have been explored",
+  "tier_1_methods": {
+    "convergent_cross_mapping": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "transfer_entropy": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_applicable", "reason": "H002 is about constraints, not information flow"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "predictive_information_decomposition": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "attractor_reconstruction": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "wavelet_coherence": {
+      "priority": 5, "differentiation": 4,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_applicable", "reason": "Not frequency-domain relevant"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "climate_networks": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "bayesian_model_comparison": {
+      "priority": 5, "differentiation": 4,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    },
+    "symbolic_regression": {
+      "priority": 5, "differentiation": 5,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_applicable", "reason": "Equation discovery is point-wise, not spatial"}
+    },
+    "instrumental_variables_volcanic": {
+      "priority": 5, "differentiation": 4,
+      "H001_cloud_buffering": {"status": "not_started"},
+      "H002_invariant_properties": {"status": "not_started"},
+      "H003_teleconnections": {"status": "not_started"}
+    }
+  },
+  "tier_2_methods": {
+    "lyapunov_exponents": {"priority": 4, "differentiation": 5, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "sindy": {"priority": 4, "differentiation": 5, "H001": "not_started", "H002": "not_started", "H003": "not_applicable"},
+    "bayesian_hierarchical": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "ica": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "hidden_markov_models": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "regime_switching_regression": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "singular_spectrum_analysis": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "community_detection": {"priority": 4, "differentiation": 5, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "network_centrality": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "wasserstein_distance": {"priority": 4, "differentiation": 5, "H001": "not_started", "H002": "not_started", "H003": "not_started"},
+    "synthetic_control": {"priority": 4, "differentiation": 4, "H001": "not_started", "H002": "not_started", "H003": "not_applicable"},
+    "dowhy_causal_dag": {"priority": 4, "differentiation": 5, "H001": "not_started", "H002": "not_started", "H003": "not_started"}
+  },
+  "tier_3_methods": {
+    "granger_causality": {"priority": 3, "differentiation": 3},
+    "mutual_information": {"priority": 3, "differentiation": 3},
+    "complexity_measures": {"priority": 3, "differentiation": 4},
+    "cross_spectral_analysis": {"priority": 3, "differentiation": 3},
+    "gaussian_processes": {"priority": 3, "differentiation": 3},
+    "bayesian_changepoint": {"priority": 3, "differentiation": 3},
+    "neural_ode": {"priority": 3, "differentiation": 4},
+    "diffusion_maps": {"priority": 3, "differentiation": 5},
+    "recurrence_quantification": {"priority": 3, "differentiation": 4},
+    "probabilistic_graphical_models": {"priority": 3, "differentiation": 4},
+    "umap_tsne": {"priority": 2, "differentiation": 2},
+    "gmm_residuals": {"priority": 2, "differentiation": 2},
+    "distributional_regression": {"priority": 2, "differentiation": 3},
+    "graph_neural_networks": {"priority": 2, "differentiation": 2},
+    "spectral_granger": {"priority": 2, "differentiation": 3}
+  },
+  "summary": {
+    "total_cells": 85,
+    "explored": 0,
+    "not_started": 78,
+    "not_applicable": 7,
+    "in_progress": 0,
+    "completed": 0,
+    "coverage": 0.0
+  }
+}

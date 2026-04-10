@@ -1,0 +1,106 @@
+prior_work:
+  models_used:
+    - name: "FFNN (5-layer)"
+      details: "Input(15) → 128 → 64 → 32 → 16 → 1, ReLU, BatchNorm, Dropout"
+      performance: "val_loss = 0.001061"
+      checkpoint: "albedo_ffnn_5layer_relu_v0_66_terminator_epoch_2_valloss_0.001061013489978769.pth"
+      notebook: "Albedo Machine Learning with no TS model.ipynb"
+
+    - name: "U-Net (encoder-decoder)"
+      details: "64 → 128 → 256 → 512 → 1024 channels, skip connections, dropout 0.1"
+      purpose: "Spatial teleconnection analysis"
+      notebook: "CNN Encoder Model.ipynb (in parent directory)"
+
+    - name: "Prophet BSTS"
+      details: "Facebook Prophet with MCMC sampling (1000-4000 samples)"
+      purpose: "Additive decomposition of albedo into trend + seasonality + regressor effects"
+      notebook: "Additive Impacts & Kernel Time Varying Regression.ipynb"
+
+    - name: "ExtraTrees Regressor"
+      details: "scikit-learn ExtraTreesRegressor"
+      purpose: "Baseline ML model, TreeSHAP computation"
+      notebook: "Albedo Machine Learning with no TS model.ipynb"
+
+    - name: "Linear Regression"
+      details: "scikit-learn LinearRegression"
+      purpose: "Baseline comparison, AIC evaluation"
+      notebook: "Albedo Machine Learning with no TS model.ipynb"
+
+    - name: "Explainable Boosting Regressor"
+      details: "interpret library ExplainableBoostingRegressor"
+      purpose: "Interpretable ML baseline"
+      notebook: "Albedo Machine Learning with no TS model.ipynb"
+
+  methods_used:
+    - name: "SHAP (DeepSHAP + TreeSHAP)"
+      purpose: "Feature importance and interaction analysis"
+      key_finding: "Cloud properties dominate; latitude is key spatial feature"
+
+    - name: "SHAP interaction matrices"
+      purpose: "Pairwise feature interaction strengths"
+      key_finding: "cldarea_total_mon, ini_albedo_mon, ini_aod55_mon interact strongly"
+
+    - name: "Hemisphere-specific perturbation experiments"
+      purpose: "Virtual lab - perturb features in one hemisphere, observe response"
+      key_finding: "Cloud area fraction responds inversely to surface albedo changes"
+
+    - name: "Prophet additive decomposition"
+      purpose: "Per-feature regression coefficients with confidence intervals"
+      key_finding: "Time-varying impacts of cloud/aerosol/surface on albedo"
+
+    - name: "Kernel time-varying regression (Orbit-ML)"
+      purpose: "Coefficients that evolve over time"
+      key_finding: "Relationships between predictors and albedo change over years"
+
+    - name: "U-Net ablation study"
+      purpose: "Stochastic noise injection to test feature importance spatially"
+      key_finding: "No single region controls global albedo (null result for regional control)"
+
+    - name: "Multi-resolution latitude binning"
+      purpose: "Analyze at 5° to 55° resolution"
+
+    - name: "AIC model comparison"
+      purpose: "Compare MLR vs FFNN complexity-performance tradeoff"
+      key_finding: "FFNN outperforms MLR even after complexity penalty"
+
+  hypotheses_tested:
+    - hypothesis: "Cloud Buffering"
+      test: "CAF responds inversely to surface albedo (FFNN perturbation)"
+      result: "SUPPORTED"
+      details: "CAF responds inversely, monotonically, and non-linearly to fractional changes in broadband surface albedo"
+
+    - hypothesis: "Feature importance hierarchy"
+      test: "SHAP ranking of feature contributions to albedo"
+      result: "CONFIRMED"
+      details: "Cloud properties dominate; latitude is key spatial feature in FFNN but not in MLR"
+
+    - hypothesis: "Model complexity justification"
+      test: "AIC comparison MLR vs FFNN"
+      result: "CONFIRMED"
+      details: "FFNN (13,409 params) has better AIC than MLR (16 params)"
+
+    - hypothesis: "Regional control of global albedo"
+      test: "U-Net single-gridbox → global albedo prediction"
+      result: "NULL RESULT"
+      details: "No particular region or set of regions exerts strong control on global albedo"
+
+    - hypothesis: "FFNN temporal stability"
+      test: "Train on 2000-2018, predict 2019+"
+      result: "OBSERVED DEGRADATION"
+      details: "Bias increases to -0.002 and RMSE to 0.004 after 4 years withheld"
+
+  gaps_identified:
+    - "No causal inference methods (only correlational/attributional)"
+    - "No information-theoretic analysis (transfer entropy, mutual information)"
+    - "No spectral/frequency-domain analysis (wavelets, SSA)"
+    - "No graph-based or network approaches (climate networks)"
+    - "No Bayesian model comparison or model averaging (only AIC for MLR vs FFNN)"
+    - "No explicit dynamical systems analysis (attractors, Lyapunov exponents)"
+    - "No coupling with ocean/atmospheric circulation indices (ENSO, NAO, PDO)"
+    - "No regime-switching or hidden Markov models"
+    - "No optimal transport or Wasserstein distance approaches"
+    - "No symbolic regression or equation discovery"
+    - "CMIP6 comparison not yet implemented in code (only referenced)"
+    - "No cross-validated temporal predictions (only spatial cross-validation)"
+    - "No formal instrumental variable analysis using volcanic eruptions"
+    - "No independent component analysis of albedo variability sources"
