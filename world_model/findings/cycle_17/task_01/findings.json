@@ -1,0 +1,27 @@
+{
+  "finding_id": "E019",
+  "cycle": 17,
+  "task_id": 1,
+  "summary": "ADVERSARIAL H001: Mixed results. (1) ENSO confound: after removing ENSO signal, BOTH cloud\u2192albedo AND albedo\u2192cloud become significant \u2014 the original 'unidirectional' Granger result was partly an ENSO confound. Cloud buffering is BIDIRECTIONAL feedback, not one-way. WEAKENED. (2) Temporal aggregation: quarterly Granger significant (p=0.002), annual marginal (p=0.05). MOSTLY SURVIVES. (3) Rolling slope: cloud\u2192albedo slope NEVER reverses across 241 5-year windows \u2014 SURVIVES. Overall: H001 mechanism is real but the 'unidirectional' claim is weakened to 'bidirectional feedback'.",
+  "statistics": {
+    "residualized_cloud_to_alb_p": 0.0,
+    "residualized_alb_to_cloud_p": 0.0,
+    "quarterly_p": 0.0019,
+    "annual_p": 0.0499,
+    "n_negative_slope_windows": 0,
+    "n_total_windows": 241,
+    "p_value": 0.001
+  },
+  "hypothesis_id": "H001",
+  "refutes_hypothesis": false,
+  "confidence": 0.7,
+  "script_path": "world_model/analyses/A017_adversarial_h001/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "adversarial_testing",
+  "figure_paths": [
+    "world_model/analyses/A017_adversarial_h001/figures/adversarial_h001.png"
+  ],
+  "created_at": "2026-04-09T23:08:27.834343",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "61f8e8ae9a4f1193"
+}

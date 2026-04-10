@@ -5,7 +5,7 @@
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
       "status": "supported",
-      "confidence": 0.85,
+      "confidence": 0.75,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
         "prior_perturbation_caf_surface_albedo",
@@ -88,6 +88,16 @@
           "cycle": 11,
           "status": "supported",
           "rationale": "5th method (regime switching) confirms cloud buffering across all regimes. H001 CONVERGED: 5/5 methods, 3/2 subsets."
+        },
+        {
+          "cycle": 17,
+          "status": "supported",
+          "rationale": "Adversarial: unidirectional claim weakened (ENSO confound makes it bidirectional). But cloud\u2192albedo slope never reverses and persists across temporal scales. H001 mechanism is real but it's FEEDBACK, not one-way buffering."
+        },
+        {
+          "cycle": 18,
+          "status": "supported",
+          "rationale": "After Bonferroni correction: 3 methods survive. After adversarial testing: see cycles 15-17."
         }
       ]
     },
@@ -95,8 +105,8 @@
       "id": "H002",
       "name": "Invariant Earth System Properties",
       "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales (physical constants, geometry, water optical properties).",
-      "status": "supported",
-      "confidence": 0.8,
+      "status": "testing",
+      "confidence": 0.5,
       "source": "Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
         "prior_shap_latitude_importance",
@@ -107,7 +117,8 @@
         "E016"
       ],
       "refuting_evidence": [
-        "E010"
+        "E010",
+        "E017"
       ],
       "testable_predictions": [
         {
@@ -161,8 +172,8 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 5,
-        "methods_refuting": 1,
+        "methods_confirming": 3,
+        "methods_refuting": 3,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
         "data_subsets_tested": 3,
@@ -188,6 +199,16 @@
           "cycle": 14,
           "status": "supported",
           "rationale": "5th method (HMM) confirms invariant constraints. H002 CONVERGED: 5/5 methods (attractor, symbolic regression, SINDy, Bayesian comparison, HMM), 3/2 subsets. Note: 1 refuting method (linear variance decomposition) but reconciled \u2014 invariant constraints operate NONLINEARLY."
+        },
+        {
+          "cycle": 15,
+          "status": "testing",
+          "rationale": "Adversarial testing invalidated 2 methods (HMM trivial, poly2 spatial confound). H002 back to 3/5. Needs 2 more genuine confirming methods."
+        },
+        {
+          "cycle": 18,
+          "status": "testing",
+          "rationale": "After Bonferroni correction: 3 methods survive. After adversarial testing: see cycles 15-17."
         }
       ]
     },
@@ -304,6 +325,16 @@
           "cycle": 10,
           "status": "supported",
           "rationale": "5th independent method (ICA) confirms cross-hemispheric coupling. H003 CONVERGED at 5/5 methods + 2/2 subsets."
+        },
+        {
+          "cycle": 16,
+          "status": "supported",
+          "rationale": "Adversarial testing: H003 survives bootstrap, phase surrogates, and bin sensitivity (5/6 bins). Remains supported."
+        },
+        {
+          "cycle": 18,
+          "status": "supported",
+          "rationale": "After Bonferroni correction: 5 methods survive. After adversarial testing: see cycles 15-17."
         }
       ]
     }
