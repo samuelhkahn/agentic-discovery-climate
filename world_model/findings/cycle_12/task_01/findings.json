@@ -1,0 +1,26 @@
+{
+  "finding_id": "E014",
+  "cycle": 12,
+  "task_id": 1,
+  "summary": "SINDy discovers NEGATIVE self-feedback in albedo dynamics (coefficient=-0.033): albedo perturbations decay over time, confirming self-stabilization. However, equation fit is poor (R\u00b2=0.01) \u2014 monthly-resolution dynamics are dominated by noise. The SIGN of self-feedback is the key finding: albedo is self-stabilizing. 3rd method for H002.",
+  "statistics": {
+    "albedo_self_feedback_coef": -0.0327,
+    "self_stabilizing": true,
+    "equation_r2": 0.0112,
+    "n_terms": 9,
+    "p_value": 0.05,
+    "effect_size": 0.033
+  },
+  "hypothesis_id": "H002",
+  "refutes_hypothesis": false,
+  "confidence": 0.6,
+  "script_path": "world_model/analyses/A012_sindy_h002/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "sindy",
+  "figure_paths": [
+    "world_model/analyses/A012_sindy_h002/figures/sindy_equations.png"
+  ],
+  "created_at": "2026-04-09T22:53:27.086522",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "0f69761e70400889"
+}

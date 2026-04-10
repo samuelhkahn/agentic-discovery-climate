@@ -1,0 +1,28 @@
+{
+  "finding_id": "E015",
+  "cycle": 13,
+  "task_id": 1,
+  "summary": "Bayesian model comparison: invariant polynomial model (lat\u00b2/lon\u00b2/month\u00b2) BEST by BIC (R\u00b2=0.62) \u2014 decisively beats cloud-only model (R\u00b2=0.44, \u0394BIC>100,000). Geometry/insolation structure explains MORE albedo variance than clouds when quadratic terms included. Consistent across 2000-2012 and 2013-2025. 4th method for H002.",
+  "statistics": {
+    "r2_invariant_poly2": 0.6167,
+    "r2_clouds": 0.4366,
+    "r2_combined": 0.4466,
+    "bic_invariant_poly2": -1532804,
+    "bic_clouds": -1417293,
+    "delta_bic": 115511,
+    "p_value": 0.001,
+    "effect_size": 0.62
+  },
+  "hypothesis_id": "H002",
+  "refutes_hypothesis": false,
+  "confidence": 0.85,
+  "script_path": "world_model/analyses/A013_bayesian_model_comparison/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "bayesian_model_comparison",
+  "figure_paths": [
+    "world_model/analyses/A013_bayesian_model_comparison/figures/bayesian_model_comparison.png"
+  ],
+  "created_at": "2026-04-09T22:55:46.583782",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "66b2553aebf9a679"
+}

@@ -100,7 +100,9 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E015",
+        "result": "supports"
       },
       "H003_teleconnections": {
         "status": "not_started"
@@ -286,11 +288,11 @@
   },
   "summary": {
     "total_cells": 85,
-    "explored": 5,
+    "explored": 6,
     "not_started": 78,
     "not_applicable": 7,
     "in_progress": 0,
     "completed": 0,
-    "coverage": 0.059
+    "coverage": 0.071
   }
 }

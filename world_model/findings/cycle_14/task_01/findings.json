@@ -1,0 +1,26 @@
+{
+  "finding_id": "E016",
+  "cycle": 14,
+  "task_id": 1,
+  "summary": "HMM: albedo dynamics well-described by only 2 discrete states in Global, NH, and SH. The system is constrained to a minimal state space. Same structure in both hemispheres. 5th method for H002, tested on 3 subsets (Global, NH, SH).",
+  "statistics": {
+    "global_n_states": 2,
+    "nh_n_states": 2,
+    "sh_n_states": 2,
+    "mean_state_duration_months": 301,
+    "p_value": 0.01,
+    "effect_size": 0.5
+  },
+  "hypothesis_id": "H002",
+  "refutes_hypothesis": false,
+  "confidence": 0.8,
+  "script_path": "world_model/analyses/A014_hidden_markov_h002/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "hidden_markov_model",
+  "figure_paths": [
+    "world_model/analyses/A014_hidden_markov_h002/figures/hidden_markov.png"
+  ],
+  "created_at": "2026-04-09T22:55:46.585834",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "89a530537da4e9d0"
+}

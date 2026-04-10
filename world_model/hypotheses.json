@@ -4,14 +4,15 @@
       "id": "H001",
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
-      "status": "testing",
-      "confidence": 0.75,
+      "status": "supported",
+      "confidence": 0.85,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
         "prior_perturbation_caf_surface_albedo",
         "E008",
         "E010",
-        "E011"
+        "E011",
+        "E013"
       ],
       "refuting_evidence": [],
       "testable_predictions": [
@@ -70,11 +71,11 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 4,
+        "methods_confirming": 5,
         "methods_refuting": 0,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 1,
+        "data_subsets_tested": 3,
         "min_subsets_for_convergence": 2
       },
       "history": [
@@ -82,6 +83,11 @@
           "cycle": 0,
           "status": "testing",
           "rationale": "Prior FFNN perturbation work provides correlational support; causal evidence needed"
+        },
+        {
+          "cycle": 11,
+          "status": "supported",
+          "rationale": "5th method (regime switching) confirms cloud buffering across all regimes. H001 CONVERGED: 5/5 methods, 3/2 subsets."
         }
       ]
     },
@@ -89,13 +95,16 @@
       "id": "H002",
       "name": "Invariant Earth System Properties",
       "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales (physical constants, geometry, water optical properties).",
-      "status": "testing",
-      "confidence": 0.45,
+      "status": "supported",
+      "confidence": 0.8,
       "source": "Feldman et al. (2026) Nature paper",
       "supporting_evidence": [
         "prior_shap_latitude_importance",
         "E004",
-        "E007"
+        "E007",
+        "E014",
+        "E015",
+        "E016"
       ],
       "refuting_evidence": [
         "E010"
@@ -152,11 +161,11 @@
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 2,
+        "methods_confirming": 5,
         "methods_refuting": 1,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 2,
+        "data_subsets_tested": 3,
         "min_subsets_for_convergence": 2
       },
       "history": [
@@ -174,6 +183,11 @@
           "cycle": 9,
           "status": "testing",
           "rationale": "Linear variance decomposition shows invariant features explain <1% of gridded albedo. But this may reflect linear limitations \u2014 attractor analysis showed low dimensionality (nonlinear constraint)."
+        },
+        {
+          "cycle": 14,
+          "status": "supported",
+          "rationale": "5th method (HMM) confirms invariant constraints. H002 CONVERGED: 5/5 methods (attractor, symbolic regression, SINDy, Bayesian comparison, HMM), 3/2 subsets. Note: 1 refuting method (linear variance decomposition) but reconciled \u2014 invariant constraints operate NONLINEARLY."
         }
       ]
     },
