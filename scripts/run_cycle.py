@@ -28,6 +28,7 @@ from utils import (
     _load_meta, load_hypotheses, load_exploration_map, load_literature,
     get_frontier, check_convergence, start_cycle, end_cycle, WORLD_MODEL_DIR
 )
+from mcts import run_mcts_search, MCTSConfig
 
 
 def build_cycle_context():
@@ -38,6 +39,25 @@ def build_cycle_context():
     literature = load_literature()
     convergence = check_convergence()
     frontier = get_frontier(n=10)
+
+    # MCTS-informed recommendation
+    try:
+        mcts_result = run_mcts_search(config=MCTSConfig(num_rollouts=200))
+        mcts_recommendation = {
+            "action": mcts_result.recommended_action,
+            "value": mcts_result.action_values.get(mcts_result.recommended_action, 0),
+            "visits": mcts_result.action_visits.get(mcts_result.recommended_action, 0),
+            "alternatives": [
+                {"action": a, "value": v, "visits": mcts_result.action_visits.get(a, 0)}
+                for a, v in sorted(mcts_result.action_values.items(), key=lambda x: -x[1])[:5]
+            ],
+            "reasoning": mcts_result.reasoning,
+            "total_rollouts": mcts_result.total_rollouts,
+            "search_time": mcts_result.search_time_seconds,
+            "tree_depth": mcts_result.tree_depth,
+        }
+    except Exception as e:
+        mcts_recommendation = {"error": str(e)}
 
     # Load recent cycle summaries (last 3)
     recent_summaries = []
@@ -76,6 +96,7 @@ def build_cycle_context():
         "convergence": convergence,
         "hypothesis_status": hyp_table,
         "frontier": frontier,
+        "mcts_recommendation": mcts_recommendation,
         "exploration_coverage": emap["summary"]["coverage"],
         "total_findings": meta["total_findings"],
         "recent_summaries": recent_summaries,
@@ -118,6 +139,26 @@ def print_cycle_prompt(context):
         print(f"  {i}. [{f['score']:.1f}] {f['method']} × {f['hypothesis']} (P={f['priority']}, D={f['differentiation']})")
     print()
 
+    # MCTS recommendation
+    mcts = context.get("mcts_recommendation", {})
+    if "action" in mcts:
+        method, hyp = mcts["action"]
+        print(f"MCTS RECOMMENDATION ({mcts['total_rollouts']} rollouts, {mcts['search_time']:.2f}s, depth={mcts['tree_depth']}):")
+        print(f"  >>> {method} × {hyp}")
+        print(f"      Value: {mcts['value']:.3f}, Visits: {mcts['visits']}")
+        print()
+        if mcts.get("alternatives"):
+            print("  Alternatives (by value):")
+            for alt in mcts["alternatives"][:5]:
+                m, h = alt["action"]
+                print(f"    {m:30s} × {h:6s}  value={alt['value']:.3f}  visits={alt['visits']}")
+        print()
+        print(f"  Reasoning: {mcts['reasoning']}")
+        print()
+    elif "error" in mcts:
+        print(f"MCTS: Error — {mcts['error']}")
+        print()
+
     # Recent findings
     if context["recent_summaries"]:
         print("RECENT CYCLE SUMMARIES:")
@@ -127,16 +168,15 @@ def print_cycle_prompt(context):
 
     # Instructions
     print("INSTRUCTIONS FOR AGENT:")
-    print("1. Select the highest-priority frontier cell (or follow a promising lead)")
-    print("2. Write a Python analysis script in world_model/analyses/")
-    print("3. Execute the script and record findings")
-    print("4. Search literature for relevant papers using WebSearch")
+    print("1. Consider the MCTS recommendation (tree-search optimized for convergence)")
+    print("2. The greedy frontier is shown for comparison — MCTS accounts for lookahead")
+    print("3. Write a Python analysis script in world_model/analyses/")
+    print("4. Execute the script and record findings")
     print("5. Update hypothesis status if evidence warrants it")
     print("6. Check if any hypothesis has converged")
-    print("7. Propose next cycle priorities")
     print()
-    print("You have FULL FREEDOM to choose any method, library, or approach.")
-    print("The frontier is a suggestion — follow surprising leads aggressively.")
+    print("You may override MCTS if you have domain-specific reasoning.")
+    print("The MCTS balances exploration/exploitation and hypothesis progress.")
     print("=" * 80)
 
 
