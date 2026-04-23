@@ -5,26 +5,42 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E001",
+        "result": "supports"
       },
       "H002_invariant_properties": {
         "status": "not_started"
       },
       "H003_teleconnections": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E016",
+        "result": "supports"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "completed",
+        "finding_id": "E017",
+        "result": "supports"
       }
     },
     "transfer_entropy": {
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E004",
+        "result": "inconclusive"
       },
       "H002_invariant_properties": {
         "status": "not_applicable",
         "reason": "H002 is about constraints, not information flow"
       },
       "H003_teleconnections": {
+        "status": "completed",
+        "finding_id": "E002",
+        "result": "supports"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
         "status": "not_started"
       }
     },
@@ -39,32 +55,51 @@
       },
       "H003_teleconnections": {
         "status": "not_started"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
       }
     },
     "attractor_reconstruction": {
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E022",
+        "result": "supports"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E003",
+        "result": "supports"
       },
       "H003_teleconnections": {
         "status": "not_started"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "completed",
+        "finding_id": "E010",
+        "result": "supports"
       }
     },
     "wavelet_coherence": {
       "priority": 5,
       "differentiation": 4,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E024",
+        "result": "supports"
       },
       "H002_invariant_properties": {
         "status": "not_applicable",
         "reason": "Not frequency-domain relevant"
       },
       "H003_teleconnections": {
+        "status": "completed",
+        "finding_id": "E018",
+        "result": "supports"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
         "status": "not_started"
       }
     },
@@ -72,13 +107,24 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E015",
+        "result": "supports"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E021",
+        "result": "supports"
       },
       "H003_teleconnections": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E008",
+        "result": "supports"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "completed",
+        "finding_id": "E009",
+        "result": "supports"
       }
     },
     "bayesian_model_comparison": {
@@ -92,20 +138,32 @@
       },
       "H003_teleconnections": {
         "status": "not_started"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
       }
     },
     "symbolic_regression": {
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E014",
+        "result": "inconclusive"
       },
       "H002_invariant_properties": {
-        "status": "not_started"
+        "status": "completed",
+        "finding_id": "E013",
+        "result": "supports"
       },
       "H003_teleconnections": {
         "status": "not_applicable",
         "reason": "Equation discovery is point-wise, not spatial"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "completed",
+        "finding_id": "E020",
+        "result": "supports"
       }
     },
     "instrumental_variables_volcanic": {
@@ -119,6 +177,9 @@
       },
       "H003_teleconnections": {
         "status": "not_started"
+      },
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
       }
     }
   },
@@ -128,84 +189,120 @@
       "differentiation": 5,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "sindy": {
       "priority": 4,
       "differentiation": 5,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_applicable"
+      "H003": "not_applicable",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "bayesian_hierarchical": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "ica": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "hidden_markov_models": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "regime_switching_regression": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "singular_spectrum_analysis": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "community_detection": {
       "priority": 4,
       "differentiation": 5,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "network_centrality": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "wasserstein_distance": {
       "priority": 4,
       "differentiation": 5,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "synthetic_control": {
       "priority": 4,
       "differentiation": 4,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_applicable"
+      "H003": "not_applicable",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     },
     "dowhy_causal_dag": {
       "priority": 4,
       "differentiation": 5,
       "H001": "not_started",
       "H002": "not_started",
-      "H003": "not_started"
+      "H003": "not_started",
+      "H004_coupled_low_dimensional_hemispheric_oscillator": {
+        "status": "not_started"
+      }
     }
   },
   "tier_3_methods": {
@@ -271,10 +368,10 @@
     }
   },
   "summary": {
-    "total_cells": 85,
-    "explored": 0,
-    "not_started": 24,
-    "not_applicable": 61,
-    "coverage": 0.0
+    "total_cells": 48,
+    "explored": 17,
+    "not_started": 28,
+    "not_applicable": 3,
+    "coverage": 0.378
   }
 }

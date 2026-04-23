@@ -1,0 +1,23 @@
+{
+  "finding_id": "E007",
+  "cycle": 5,
+  "task_id": 5,
+  "summary": "Granger causality directly tests H004 prediction P002: SH\u2192NH causality is confirmed at lag=5 months (p<0.0001), and NH\u2192SH at lag=1 month. The asymmetry (NH drives SH at short lag, SH drives NH at medium lag) is consistent with H004's coupled oscillator model. The short NH\u2192SH lag (1 month) may reflect rapid cloud/albedo response to NH forcing patterns, while the longer SH\u2192NH lag (5 months) suggests SH sets the background state that modulates NH variability on seasonal timescales.",
+  "statistics": {
+    "SH_to_NH_p": 0.0,
+    "SH_to_NH_lag": 5,
+    "NH_to_SH_p": 0.0,
+    "NH_to_SH_lag": 1,
+    "asymmetric_coupling_confirmed": true
+  },
+  "hypothesis_id": "H004",
+  "refutes_hypothesis": false,
+  "confidence": 0.7,
+  "script_path": "world_model/analyses/A008_granger_causality/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "granger_causality",
+  "figure_paths": [],
+  "created_at": "2026-04-23T00:36:34.121907",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "9a7d08752b2328c9"
+}

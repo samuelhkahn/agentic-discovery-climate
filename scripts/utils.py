@@ -363,8 +363,16 @@ def scholar_eval(finding):
 # ── Convergence Check ────────────────────────────────────────────────
 
 def check_convergence():
-    """Check if all hypotheses have converged."""
+    """Check if all hypotheses have converged and determine system phase.
+
+    Returns dict with:
+    - converged: bool — all hypotheses resolved
+    - resolved/unresolved: lists
+    - progress: 0-1
+    - phase: "exploring" | "adversarial" | "complete"
+    """
     hyp_data = load_hypotheses()
+    meta = _load_meta()
     resolved = []
     unresolved = []
 
@@ -383,9 +391,24 @@ def check_convergence():
         else:
             unresolved.append(h["id"])
 
+    all_converged = len(unresolved) == 0
+
+    # Determine phase
+    current_state = meta.get("convergence_state", "exploring")
+
+    if current_state == "complete":
+        phase = "complete"
+    elif current_state == "adversarial":
+        phase = "adversarial"
+    elif all_converged:
+        phase = "adversarial"  # Auto-transition when all converge
+    else:
+        phase = "exploring"
+
     return {
-        "converged": len(unresolved) == 0,
+        "converged": all_converged,
         "resolved": resolved,
         "unresolved": unresolved,
-        "progress": len(resolved) / max(len(resolved) + len(unresolved), 1)
+        "progress": len(resolved) / max(len(resolved) + len(unresolved), 1),
+        "phase": phase,
     }

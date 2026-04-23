@@ -1,0 +1,24 @@
+{
+  "finding_id": "E014",
+  "cycle": 10,
+  "task_id": 10,
+  "summary": "Lagged regression asymmetry test for H001: all cross-validated R\u00b2 values are negative (cloud history \u2192 future albedo: R\u00b2_cv=-1.68; albedo \u2192 future cloud: R\u00b2_cv=-0.06). After deseasonalization, monthly global-mean albedo anomalies are essentially unpredictable from past cloud state at 3-12 month lags. This is CONSISTENT with the TE null result (A020) and confirms that the cloud-albedo causal relationship found by CCM (A019) and Granger (A008) operates through SYNCHRONOUS coupling rather than lagged predictability. The albedo anomaly appears to be driven by concurrent cloud cover rather than predictable from its cloud history. METHODOLOGICAL NOTE: Cross-validated R\u00b2 < 0 means the lag model generalizes worse than simply predicting the mean \u2014 the signal is in the same-month relationship, not lags.",
+  "statistics": {
+    "r2_cv_cloud_to_albedo_lag3": -1.897,
+    "r2_cv_cloud_to_albedo_lag12": -1.685,
+    "r2_cv_albedo_to_cloud_lag3": -0.086,
+    "r2_cv_albedo_to_cloud_lag12": -0.063,
+    "all_cv_negative": true,
+    "n_months": 301
+  },
+  "hypothesis_id": "H001",
+  "refutes_hypothesis": false,
+  "confidence": 0.4,
+  "script_path": "world_model/analyses/A022_lagged_regression_h001/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "symbolic_regression",
+  "figure_paths": [],
+  "created_at": "2026-04-23T00:43:51.646174",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "59e533e39646d163"
+}

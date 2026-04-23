@@ -771,3 +771,232 @@ if __name__ == "__main__":
                             print(f"  [{t['type']}] {t['detail']}")
         else:
             print("No findings yet — no triggers to detect.")
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Adversarial Phase
+# ═══════════════════════════════════════════════════════════════════════
+
+ADVERSARIAL_ATTACK_TYPES = [
+    {
+        "id": "trivial_result",
+        "name": "Trivial Result Check",
+        "description": "Is the method's finding trivially true? (e.g., HMM finds 1 state = no regime structure)",
+        "prompt": (
+            "Examine finding {finding_id} ({method}) for {hypothesis}.\n"
+            "Summary: {summary}\n"
+            "Statistics: {statistics}\n\n"
+            "Is this result TRIVIALLY TRUE — would it hold for ANY dataset regardless of albedo physics?\n"
+            "Examples of trivial results:\n"
+            "- HMM finds 2 states but mean state duration = entire series (no actual switching)\n"
+            "- Polynomial fit achieves high R² but any spatial field would fit equally well\n"
+            "- Correlation is significant but effect size is negligible\n\n"
+            "Write analysis script to TEST whether this result is trivial.\n"
+            "Compare against: random data, shuffled data, or synthetic null."
+        ),
+    },
+    {
+        "id": "confound_check",
+        "name": "Confounding Variable Check",
+        "description": "Is the result driven by a confound (ENSO, seasonal cycle, spatial structure)?",
+        "prompt": (
+            "Examine finding {finding_id} ({method}) for {hypothesis}.\n"
+            "Summary: {summary}\n\n"
+            "Could this result be driven by a CONFOUNDING VARIABLE?\n"
+            "Common confounds in albedo research:\n"
+            "- ENSO: both clouds and albedo respond to ENSO → spurious cloud-albedo link\n"
+            "- Seasonal cycle: residual seasonality inflates correlations\n"
+            "- Spatial structure: lat/lon polynomials fit any geographic field\n"
+            "- Autocorrelation: inflates significance of time series tests\n\n"
+            "Write analysis script to REMOVE the suspected confound and re-test.\n"
+            "If the result disappears after deconfounding, it's INVALIDATED."
+        ),
+    },
+    {
+        "id": "robustness_check",
+        "name": "Robustness / Sensitivity Check",
+        "description": "Is the result sensitive to parameter choices (bins, lags, subsampling)?",
+        "prompt": (
+            "Examine finding {finding_id} ({method}) for {hypothesis}.\n"
+            "Summary: {summary}\n"
+            "Statistics: {statistics}\n\n"
+            "Is this result ROBUST to reasonable parameter variations?\n"
+            "Test:\n"
+            "- Bootstrap: resample data 1000x, does 95% CI exclude zero?\n"
+            "- Parameter sensitivity: vary key parameters (n_bins, lag, threshold)\n"
+            "- Phase-randomized surrogates: destroy temporal coupling, does signal vanish?\n"
+            "- Split-half: does result hold on first half vs second half of time series?\n\n"
+            "Write analysis script with at least 2 of these robustness checks."
+        ),
+    },
+    {
+        "id": "multiple_comparison",
+        "name": "Multiple Comparison Correction",
+        "description": "Does this finding survive Bonferroni correction across all analyses?",
+        "prompt": (
+            "Collect ALL p-values across all findings for {hypothesis}.\n"
+            "Apply Bonferroni correction (p < 0.05/N where N = total tests).\n"
+            "Apply Benjamini-Hochberg FDR at q=0.05.\n\n"
+            "For finding {finding_id} ({method}):\n"
+            "  Original p-value: {p_value}\n"
+            "  Does it survive Bonferroni? Does it survive FDR?\n\n"
+            "Write analysis script that collects all p-values and applies corrections."
+        ),
+    },
+]
+
+
+def generate_adversarial_attacks(hypotheses, all_findings):
+    """Generate adversarial attack proposals for all converged hypotheses.
+
+    For each converged hypothesis, identifies which confirming methods
+    to challenge and what type of attack to use.
+
+    Returns list of attack proposals.
+    """
+    attacks = []
+
+    for h in hypotheses.get("hypotheses", []):
+        # Only attack converged or supported hypotheses
+        if h.get("status") not in ("converged", "supported"):
+            continue
+
+        h_id = h["id"]
+        supporting_ids = h.get("supporting_evidence", [])
+
+        # Find the actual findings for this hypothesis
+        h_findings = [f for f in all_findings if f.get("finding_id") in supporting_ids]
+
+        if not h_findings:
+            continue
+
+        # Generate attacks for each confirming finding
+        for finding in h_findings:
+            f_id = finding.get("finding_id", "?")
+            method = finding.get("method", "unknown")
+            summary = finding.get("summary", "")[:300]
+            stats = finding.get("statistics", {})
+            p_value = stats.get("p_value", "N/A")
+
+            # Determine which attack types are most relevant
+            relevant_attacks = []
+
+            # Always check for trivial results
+            relevant_attacks.append("trivial_result")
+
+            # Check for confounds if method involves correlation/causality
+            if any(kw in method.lower() for kw in ["granger", "correlation", "regression",
+                                                      "ccm", "transfer_entropy", "ica"]):
+                relevant_attacks.append("confound_check")
+
+            # Check robustness for all methods
+            relevant_attacks.append("robustness_check")
+
+            # Multiple comparison for everything with a p-value
+            if p_value != "N/A":
+                relevant_attacks.append("multiple_comparison")
+
+            # Generate one attack per finding (pick the most informative)
+            # Priority: confound > trivial > robustness > multiple_comparison
+            priority_order = ["confound_check", "trivial_result", "robustness_check", "multiple_comparison"]
+            selected = None
+            for attack_type in priority_order:
+                if attack_type in relevant_attacks:
+                    selected = attack_type
+                    break
+
+            if selected:
+                attack_template = next(a for a in ADVERSARIAL_ATTACK_TYPES if a["id"] == selected)
+                prompt = attack_template["prompt"].format(
+                    finding_id=f_id,
+                    method=method,
+                    hypothesis=f"{h_id} ({h['name']})",
+                    summary=summary,
+                    statistics=json.dumps(stats, indent=2)[:200],
+                    p_value=p_value,
+                )
+
+                attacks.append({
+                    "hypothesis_id": h_id,
+                    "hypothesis_name": h["name"],
+                    "target_finding": f_id,
+                    "target_method": method,
+                    "attack_type": selected,
+                    "attack_name": attack_template["name"],
+                    "prompt_for_agent": prompt,
+                })
+
+    return attacks
+
+
+def apply_adversarial_result(hypothesis_id, finding_id, verdict, reason, cycle):
+    """Apply an adversarial verdict to a hypothesis.
+
+    verdict: "survives", "weakened", "invalidated"
+    """
+    hypotheses = load_hypotheses()
+    log = load_generation_log()
+
+    for h in hypotheses["hypotheses"]:
+        if h["id"] != hypothesis_id:
+            continue
+
+        cm = h.get("convergence_metrics", {})
+
+        if verdict == "invalidated":
+            # Remove from confirming count
+            cm["methods_confirming"] = max(0, cm.get("methods_confirming", 0) - 1)
+            # Add to refuting
+            cm["methods_refuting"] = cm.get("methods_refuting", 0) + 1
+            # Move finding from supporting to refuting
+            if finding_id in h.get("supporting_evidence", []):
+                h["supporting_evidence"].remove(finding_id)
+            if finding_id not in h.get("refuting_evidence", []):
+                h["refuting_evidence"].append(finding_id)
+            # Check if still converged
+            min_methods = cm.get("min_methods_for_convergence", 5)
+            if cm["methods_confirming"] < min_methods:
+                h["status"] = "testing"  # Lost convergence
+                h["confidence"] = max(0, h.get("confidence", 0) - 0.2)
+
+        elif verdict == "weakened":
+            h["confidence"] = max(0, h.get("confidence", 0) - 0.1)
+
+        # Log the event
+        h["history"].append({
+            "cycle": cycle,
+            "status": h["status"],
+            "rationale": f"Adversarial {verdict}: {reason}"
+        })
+
+        log.setdefault("adversarial_events", []).append({
+            "hypothesis_id": hypothesis_id,
+            "finding_id": finding_id,
+            "verdict": verdict,
+            "reason": reason,
+            "cycle": cycle,
+        })
+        break
+
+    save_hypotheses(hypotheses)
+    save_generation_log(log)
+
+
+def check_adversarial_complete(hypotheses, all_findings):
+    """Check if all converged hypotheses have been adversarially tested.
+
+    Returns: (is_complete, untested_count)
+    """
+    log = load_generation_log()
+    adversarial_events = log.get("adversarial_events", [])
+    tested_findings = {e["finding_id"] for e in adversarial_events}
+
+    untested = 0
+    for h in hypotheses.get("hypotheses", []):
+        if h.get("status") not in ("converged", "supported"):
+            continue
+        for f_id in h.get("supporting_evidence", []):
+            if f_id not in tested_findings:
+                untested += 1
+
+    return untested == 0, untested

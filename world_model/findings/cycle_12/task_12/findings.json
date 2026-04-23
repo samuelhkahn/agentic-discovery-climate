@@ -1,0 +1,22 @@
+{
+  "finding_id": "E017",
+  "cycle": 12,
+  "task_id": 12,
+  "summary": "CCM supports H004 (coupled hemispheric oscillator): bidirectional causal manifold coupling where SH's manifold contains more information about NH dynamics (\u03c1_max=0.401) than NH about SH (\u03c1_max=0.204). The stronger SH\u2192NH attractor coupling is consistent with the SH acting as the 'memory' component of the coupled oscillator \u2014 SH's larger ocean area provides a more complete representation of the joint attractor. NH drives the global mean more strongly (NH\u2192global \u03c1=0.776 vs SH\u2192global \u03c1=0.667), suggesting NH is the primary driver of global mean variability while SH is the slower, memory-carrying component.",
+  "statistics": {
+    "SH_manifold_predicts_NH_rho": 0.401,
+    "NH_manifold_predicts_SH_rho": 0.204,
+    "asymmetry_ratio": 1.9656862745098043,
+    "NH_drives_global_stronger": true
+  },
+  "hypothesis_id": "H004",
+  "refutes_hypothesis": false,
+  "confidence": 0.68,
+  "script_path": "world_model/analyses/A024_ccm_nh_sh/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "convergent_cross_mapping",
+  "figure_paths": [],
+  "created_at": "2026-04-23T00:47:22.768080",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "296d84af2aa8c3b3"
+}

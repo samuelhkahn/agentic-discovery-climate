@@ -1,0 +1,29 @@
+{
+  "finding_id": "E003",
+  "cycle": 3,
+  "task_id": 3,
+  "summary": "Attractor reconstruction reveals global albedo lives on a VERY LOW-DIMENSIONAL manifold: correlation dimension 1.86 (essentially 2D), embedding dimension only 3 (FNN drops from 91% to 2% by dim=3). This strongly supports H002 \u2014 the dynamics are highly constrained, consistent with invariant physical properties limiting the degrees of freedom. The Lyapunov exponent is near-zero (+0.0031), indicating marginal stability rather than true chaos. NH has exceptionally high RQA determinism (0.730), suggesting strong deterministic structure. The system is not freely evolving in high-dimensional space but constrained to a low-dimensional manifold by invariant properties.",
+  "statistics": {
+    "global_correlation_dimension": 1.86,
+    "global_embedding_dimension": 3,
+    "global_lyapunov_exponent": 0.0031,
+    "global_rqa_determinism": 0.39,
+    "global_rqa_recurrence_rate": 0.103,
+    "NH_correlation_dimension": 2.06,
+    "NH_rqa_determinism": 0.73,
+    "SH_correlation_dimension": 2.17,
+    "SH_rqa_determinism": 0.327,
+    "global_tau_months": 3,
+    "n_months": 301
+  },
+  "hypothesis_id": "H002",
+  "refutes_hypothesis": false,
+  "confidence": 0.65,
+  "script_path": "world_model/analyses/A004_attractor_reconstruction/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "attractor_reconstruction",
+  "figure_paths": [],
+  "created_at": "2026-04-23T00:30:52.184256",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "620ca4ba2962fcc4"
+}

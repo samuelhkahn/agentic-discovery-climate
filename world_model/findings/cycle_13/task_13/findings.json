@@ -1,0 +1,21 @@
+{
+  "finding_id": "E019",
+  "cycle": 13,
+  "task_id": 13,
+  "summary": "Cross-finding from wavelet coherence: the phase reversal (NH leads at 6-12 months, SH leads at 24-60 months) is a key property of the H004 coupled oscillator. The coupled system has two distinct coupling modes: (1) a fast mode (months) where NH drives SH (possibly via land-forced atmospheric teleconnections), and (2) a slow mode (ENSO timescales) where SH drives NH (likely via oceanic memory). This two-mode coupling structure is characteristic of a coupled oscillator with different components having different characteristic timescales \u2014 the fast NH-driven mode and the slow SH ocean-memory mode.",
+  "statistics": {
+    "fast_mode_lag_months": 4.0,
+    "slow_mode_lag_months": -4.2,
+    "two_mode_coupling_confirmed": true
+  },
+  "hypothesis_id": "H004",
+  "refutes_hypothesis": false,
+  "confidence": 0.72,
+  "script_path": "world_model/analyses/A002_wavelet_coherence_hemispheric/script.py",
+  "data_source": "CERES_EBAF",
+  "method": "wavelet_coherence",
+  "figure_paths": [],
+  "created_at": "2026-04-23T00:48:34.387269",
+  "scholar_eval_score": null,
+  "reproducibility_hash": "d012c4558ac62bb3"
+}

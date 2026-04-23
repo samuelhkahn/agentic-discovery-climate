@@ -21,7 +21,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils import (
-    _load_meta, load_hypotheses, load_exploration_map, load_literature,
+    _load_meta, save_meta, load_hypotheses, load_exploration_map, load_literature,
     get_frontier, check_convergence, start_cycle, end_cycle, WORLD_MODEL_DIR
 )
 from mcts import run_mcts_search, MCTSConfig
@@ -31,6 +31,7 @@ from generators import (
     prune_stale_hypotheses, prune_stale_methods,
     finalize_generation_responses,
     load_latest_finding, load_all_findings,
+    generate_adversarial_attacks, check_adversarial_complete,
 )
 
 
@@ -62,16 +63,26 @@ def build_cycle_context():
     except Exception as e:
         mcts_recommendation = {"error": str(e)}
 
-    # Detect generation triggers
+    # Detect generation triggers and adversarial attacks
     latest_finding = load_latest_finding()
     all_findings = load_all_findings()
     hypothesis_proposals = []
     method_proposals = []
+    adversarial_attacks = []
 
-    if latest_finding:
+    phase = convergence.get("phase", "exploring")
+
+    if phase == "adversarial":
+        # Generate adversarial attacks for converged hypotheses
+        adversarial_attacks = generate_adversarial_attacks(hypotheses, all_findings)
+        # Check if adversarial is complete
+        adv_complete, adv_remaining = check_adversarial_complete(hypotheses, all_findings)
+        if adv_complete:
+            phase = "complete"
+    elif phase == "exploring" and latest_finding:
         h_triggers = detect_hypothesis_triggers(
             latest_finding, all_findings, hypotheses, literature)
-        for t in h_triggers[:2]:  # Max 2 proposals per cycle
+        for t in h_triggers[:2]:
             proposal = generate_hypothesis_proposal(t, hypotheses, literature, all_findings)
             if proposal:
                 hypothesis_proposals.append(proposal)
@@ -79,7 +90,7 @@ def build_cycle_context():
         for h in hypotheses["hypotheses"]:
             if h["status"] == "testing":
                 m_triggers = detect_method_triggers(h, emap, all_findings)
-                for t in m_triggers[:1]:  # Max 1 method proposal per hypothesis
+                for t in m_triggers[:1]:
                     proposal = generate_method_proposal(t, emap, hypotheses)
                     if proposal:
                         method_proposals.append(proposal)
@@ -112,12 +123,14 @@ def build_cycle_context():
     context = {
         "cycle_number": meta["current_cycle"] + 1,
         "status": meta["status"],
+        "phase": phase,
         "convergence": convergence,
         "hypothesis_status": hyp_table,
         "frontier": frontier,
         "mcts_recommendation": mcts_recommendation,
         "hypothesis_proposals": hypothesis_proposals,
         "method_proposals": method_proposals,
+        "adversarial_attacks": adversarial_attacks,
         "exploration_coverage": emap["summary"].get("coverage", 0),
         "total_findings": meta["total_findings"],
         "recent_summaries": recent_summaries,
@@ -129,17 +142,39 @@ def build_cycle_context():
 
 def print_cycle_prompt(context):
     """Print the structured prompt for the Claude Code agent."""
+    phase = context.get("phase", "exploring")
+
     print("=" * 80)
-    print(f"AGENTIC DISCOVERY CLIMATE — CYCLE {context['cycle_number']}")
+    if phase == "adversarial":
+        print(f"AGENTIC DISCOVERY CLIMATE — ADVERSARIAL CYCLE {context['cycle_number']}")
+    elif phase == "complete":
+        print(f"AGENTIC DISCOVERY CLIMATE — COMPLETE")
+    else:
+        print(f"AGENTIC DISCOVERY CLIMATE — CYCLE {context['cycle_number']}")
     print("=" * 80)
     print()
+
+    # Phase indicator
+    if phase == "adversarial":
+        print("*** ADVERSARIAL PHASE ***")
+        print("All hypotheses converged. Now CHALLENGING the results.")
+        print("Goal: try to INVALIDATE confirming evidence. If methods fail")
+        print("adversarial testing, hypotheses lose convergence and return to testing.")
+        print()
+    elif phase == "complete":
+        print("*** RESEARCH COMPLETE ***")
+        print("All hypotheses have been tested AND adversarially challenged.")
+        print("Final results below.")
+        print()
 
     # Convergence status
     conv = context["convergence"]
     print(f"CONVERGENCE: {conv['progress']*100:.0f}% of hypotheses resolved")
-    if conv["converged"]:
-        print("ALL HYPOTHESES RESOLVED — system can stop.")
-        return
+    if conv["converged"] and phase == "complete":
+        print("ALL HYPOTHESES RESOLVED AND ADVERSARIALLY TESTED.")
+        # Still show status table below, don't return
+    elif conv["converged"]:
+        print("All converged — entering adversarial phase.")
     print(f"  Resolved: {conv['resolved']}")
     print(f"  Unresolved: {conv['unresolved']}")
     print()
@@ -205,6 +240,42 @@ def print_cycle_prompt(context):
             print(f"  {p['prompt_for_agent']}")
             print()
 
+    # ── Adversarial Attacks ──
+    adversarial = context.get("adversarial_attacks", [])
+    if adversarial:
+        print("=" * 60)
+        print("ADVERSARIAL ATTACKS — Challenge Converged Results")
+        print("=" * 60)
+        print(f"{len(adversarial)} attacks queued across converged hypotheses.")
+        print("Execute ONE attack per cycle. For each attack:")
+        print("  1. Write an analysis script that tests the claim")
+        print("  2. Record verdict: SURVIVES, WEAKENED, or INVALIDATED")
+        print("  3. Call apply_adversarial_result() to update the hypothesis")
+        print()
+
+        # Group by hypothesis
+        by_hyp = {}
+        for a in adversarial:
+            by_hyp.setdefault(a["hypothesis_id"], []).append(a)
+
+        for h_id, attacks in by_hyp.items():
+            h_name = attacks[0]["hypothesis_name"]
+            print(f"  {h_id} ({h_name}) — {len(attacks)} attacks:")
+            for i, a in enumerate(attacks, 1):
+                print(f"    {i}. [{a['attack_type']}] Target: {a['target_finding']} ({a['target_method']})")
+            print()
+
+        # Show the first attack in detail
+        first = adversarial[0]
+        print(f"NEXT ATTACK: {first['attack_type']} on {first['target_finding']}")
+        print(f"  {first['prompt_for_agent']}")
+        print()
+        print("After running the attack, record the verdict:")
+        print("  from generators import apply_adversarial_result")
+        print(f"  apply_adversarial_result('{first['hypothesis_id']}', '{first['target_finding']}',")
+        print(f"    verdict='survives|weakened|invalidated', reason='...', cycle=N)")
+        print()
+
     # Recent findings
     if context["recent_summaries"]:
         print("RECENT CYCLE SUMMARIES:")
@@ -239,6 +310,13 @@ def main():
     results = finalize_generation_responses(meta["current_cycle"])
     if results["hypotheses_added"] or results["methods_added"]:
         print(f"INTEGRATED: {results['hypotheses_added']} hypotheses, {results['methods_added']} methods")
+
+    # Check if we should transition to adversarial phase
+    convergence = check_convergence()
+    if convergence.get("phase") == "adversarial" and meta.get("convergence_state") != "adversarial":
+        meta["convergence_state"] = "adversarial"
+        save_meta(meta)
+        print("\n>>> PHASE TRANSITION: All hypotheses converged → entering ADVERSARIAL PHASE <<<\n")
 
     # Phase 2-3: Build context and print prompt
     context = build_cycle_context()
