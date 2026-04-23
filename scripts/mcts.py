@@ -249,6 +249,21 @@ class HeuristicOracle:
                 return tier[method].get("differentiation", 3)
         return 3
 
+    def is_novel(self, method: str, hypothesis: str) -> bool:
+        """Check if method or hypothesis is agent-generated."""
+        for tier_key in ["tier_1_methods", "tier_2_methods"]:
+            tier = self.exploration_map.get(tier_key, {})
+            if method in tier and tier[method].get("agent_generated"):
+                return True
+        # Check hypothesis ID: H004+ are generated
+        try:
+            h_num = int(hypothesis[1:4]) if hypothesis[0] == "H" else 0
+            if h_num > 3:
+                return True
+        except (ValueError, IndexError):
+            pass
+        return False
+
     def predict_outcome(self, state: MCTSState, action: tuple) -> dict:
         """Predict outcome probabilities for (method, hypothesis)."""
         method, hypothesis = action
@@ -267,6 +282,14 @@ class HeuristicOracle:
                 elif h.methods_refuting > h.methods_confirming:
                     p_refutes *= 1.3
                 break
+
+        # Novel entries: blend toward uniform (higher uncertainty)
+        if self.is_novel(method, hypothesis):
+            uncertainty_factor = 0.4
+            uniform = 1.0 / 3.0
+            p_supports = p_supports * (1 - uncertainty_factor) + uniform * uncertainty_factor
+            p_refutes = p_refutes * (1 - uncertainty_factor) + uniform * uncertainty_factor
+            p_inconclusive = p_inconclusive * (1 - uncertainty_factor) + uniform * uncertainty_factor
 
         # Normalize
         total = p_supports + p_refutes + p_inconclusive
@@ -572,7 +595,8 @@ def run_mcts_search(config: MCTSConfig = None) -> MCTSResult:
         tier = emap.get(tier_key, {})
         for method, mdata in tier.items():
             for key, val in mdata.items():
-                if key in ("priority", "differentiation"):
+                if key in ("priority", "differentiation", "agent_generated",
+                          "generated_cycle", "generating_trigger", "description"):
                     continue
                 if isinstance(val, dict):
                     if val.get("status") in ("completed", "in_progress"):

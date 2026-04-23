@@ -243,7 +243,8 @@ def get_frontier(n=5):
             priority = method_data.get("priority", 1)
             diff = method_data.get("differentiation", 1)
             for key, val in method_data.items():
-                if key in ("priority", "differentiation"):
+                if key in ("priority", "differentiation", "agent_generated",
+                           "generated_cycle", "generating_trigger", "description"):
                     continue
                 if isinstance(val, dict) and val.get("status") == "not_started":
                     frontier.append({
@@ -251,7 +252,8 @@ def get_frontier(n=5):
                         "hypothesis": key,
                         "priority": priority,
                         "differentiation": diff,
-                        "score": priority * 0.6 + diff * 0.4
+                        "score": priority * 0.6 + diff * 0.4,
+                        "agent_generated": method_data.get("agent_generated", False),
                     })
 
     frontier.sort(key=lambda x: x["score"], reverse=True)
@@ -271,16 +273,22 @@ def mark_explored(method, hypothesis, status, finding_id=None, result=None):
             }
             break
 
-    # Update summary
-    explored = sum(
-        1 for tier_key in ["tier_1_methods", "tier_2_methods"]
-        for m in emap.get(tier_key, {}).values()
-        for k, v in m.items()
-        if k not in ("priority", "differentiation") and isinstance(v, dict) and v.get("status") in ("completed", "in_progress")
-    )
-    total = emap["summary"]["total_cells"]
-    emap["summary"]["explored"] = explored
-    emap["summary"]["coverage"] = round(explored / max(total, 1), 3)
+    # Update summary using generators' recount if available
+    try:
+        from generators import recount_exploration_map
+        recount_exploration_map(emap)
+    except ImportError:
+        _metadata_keys = {"priority", "differentiation", "agent_generated",
+                          "generated_cycle", "generating_trigger", "description"}
+        explored = sum(
+            1 for tier_key in ["tier_1_methods", "tier_2_methods"]
+            for m in emap.get(tier_key, {}).values()
+            for k, v in m.items()
+            if k not in _metadata_keys and isinstance(v, dict) and v.get("status") in ("completed", "in_progress")
+        )
+        total = emap["summary"].get("total_cells", 85)
+        emap["summary"]["explored"] = explored
+        emap["summary"]["coverage"] = round(explored / max(total, 1), 3)
 
     save_exploration_map(emap)
 
