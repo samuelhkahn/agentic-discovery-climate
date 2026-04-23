@@ -311,12 +311,27 @@ def main():
     if results["hypotheses_added"] or results["methods_added"]:
         print(f"INTEGRATED: {results['hypotheses_added']} hypotheses, {results['methods_added']} methods")
 
-    # Check if we should transition to adversarial phase
+    # Check phase transitions
     convergence = check_convergence()
-    if convergence.get("phase") == "adversarial" and meta.get("convergence_state") != "adversarial":
+    phase = convergence.get("phase", "exploring")
+
+    if phase == "adversarial" and meta.get("convergence_state") != "adversarial":
         meta["convergence_state"] = "adversarial"
         save_meta(meta)
         print("\n>>> PHASE TRANSITION: All hypotheses converged → entering ADVERSARIAL PHASE <<<\n")
+
+    elif phase == "complete" and meta.get("convergence_state") != "complete":
+        meta["convergence_state"] = "complete"
+        save_meta(meta)
+        print("\n>>> RESEARCH COMPLETE: All hypotheses adversarially tested <<<\n")
+
+        # Auto-generate presentation
+        try:
+            from generate_slides import generate_presentation
+            output_path = generate_presentation()
+            print(f"\n>>> PRESENTATION GENERATED: {output_path} <<<\n")
+        except Exception as e:
+            print(f"\n>>> Slide generation failed: {e} <<<\n")
 
     # Phase 2-3: Build context and print prompt
     context = build_cycle_context()
