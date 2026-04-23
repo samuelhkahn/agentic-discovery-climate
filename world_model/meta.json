@@ -22,5 +22,5 @@
   "total_findings": 24,
   "total_literature_items": 0,
   "exploration_coverage": 0.0,
-  "convergence_state": "adversarial"
+  "convergence_state": "synthesizing"
 }

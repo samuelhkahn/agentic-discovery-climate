@@ -1,57 +1,31 @@
 # Agentic Discovery Climate — Agent Instructions
 
-You are an autonomous AI scientist exploring hypotheses about Earth's albedo stability. This repo contains a world model, MCTS planner, and dynamic hypothesis/method generation system.
+You are an autonomous AI scientist exploring hypotheses about Earth's albedo stability.
 
-## How to Run a Cycle
+## Lifecycle
 
-Each cycle follows this sequence. Run these steps in order:
+```
+EXPLORING → (all hypotheses converge) → SYNTHESIZING → (theory rated ≥8) → COMPLETE + PPTX
+```
 
-### Step 1: See the current state
+## Each Cycle (Exploring Phase)
+
+### Step 1: See the state
 ```bash
-cd /Users/samuelkahn/Desktop/ClimateAIResearch/agentic-discovery-climate
 python scripts/run_cycle.py
 ```
-This prints: hypothesis status, MCTS recommendation, greedy frontier, generation proposals.
 
-### Step 2: Accept or reject generation proposals (if any)
-If the output shows HYPOTHESIS or METHOD proposals, decide whether to accept. To accept, write a JSON file:
-```bash
-# Accept a hypothesis proposal:
-cat > world_model/generation_responses/H004_proposal.json << 'EOF'
-{
-  "name": "Your Hypothesis Name",
-  "statement": "Full hypothesis statement...",
-  "testable_predictions": [
-    {"id": "P001", "prediction": "Specific testable prediction 1"},
-    {"id": "P002", "prediction": "Specific testable prediction 2"}
-  ]
-}
-EOF
+### Step 2: Run the MCTS-recommended experiment
+Write a self-contained Python script in `world_model/analyses/A0XX_description/script.py`.
 
-# Accept a method proposal:
-cat > world_model/generation_responses/M_new_method_proposal.json << 'EOF'
-{
-  "name": "method_name_snake_case",
-  "description": "What this method does and why",
-  "priority": 4,
-  "differentiation": 5,
-  "applicable_hypotheses": ["H001", "H002", "H003"]
-}
-EOF
-```
+### Step 3: ADVERSARIAL SELF-CHECK (mandatory before recording)
+After getting your result, you MUST run these checks:
 
-### Step 3: Choose and execute an experiment
-Follow the MCTS recommendation (or override with domain reasoning). Write a self-contained Python script:
-```bash
-mkdir -p world_model/analyses/A0XX_description/figures
-# Write script.py that:
-#   - Imports from scripts/utils.py for data loading
-#   - Runs the analysis on CERES data
-#   - Saves figures to figures/
-#   - Saves output.json with results
-```
+1. **Shuffle test**: Run the same analysis on permuted/shuffled data. If the result persists on random data, it's trivially true → DO NOT RECORD.
+2. **Confound test**: Remove ENSO signal (residualize against Nino3.4) or remove seasonal cycle more aggressively. If the result disappears → DO NOT RECORD.
+3. **Robustness test**: Bootstrap (500x, check 95% CI excludes zero), split-half (2000-2012 vs 2013-2025), or vary key parameters. If fragile → DO NOT RECORD.
 
-### Step 4: Record the finding
+### Step 4: Record ONLY if passes
 ```python
 import sys; sys.path.insert(0, "scripts")
 from utils import create_finding, mark_explored, start_cycle, end_cycle, save_hypotheses, load_hypotheses
@@ -59,45 +33,47 @@ from utils import create_finding, mark_explored, start_cycle, end_cycle, save_hy
 cycle = start_cycle()
 finding = create_finding(
     cycle=cycle, task_id=1,
-    summary="What was found...",
-    statistics={"p_value": 0.001, "effect_size": 0.5, ...},
-    hypothesis_id="H001",  # or H002, H003, H004, ...
-    refutes_hypothesis=False,
+    summary="What was found + adversarial checks passed: [list which checks and results]",
+    statistics={"p_value": 0.001, "effect_size": 0.5, "bootstrap_ci": [0.3, 0.7], ...},
+    hypothesis_id="H001",
     confidence=0.8,
     method="method_name",
     script_path="world_model/analyses/A0XX_description/script.py",
 )
-mark_explored("method_name", "H001_cloud_buffering", "completed",
-              finding_id=finding["finding_id"], result="supports")
-
-# Update hypothesis
-hyp_data = load_hypotheses()
-for h in hyp_data["hypotheses"]:
-    if h["id"] == "H001":
-        h["supporting_evidence"].append(finding["finding_id"])
-        h["convergence_metrics"]["methods_confirming"] += 1
-save_hypotheses(hyp_data)
-
-end_cycle(cycle, summary="One-line summary of what happened this cycle")
+# Update hypothesis convergence metrics...
+end_cycle(cycle, summary="...")
 ```
 
-### Step 5: Loop back to Step 1
+If the adversarial check FAILS, still call `end_cycle` but note the failure — do not call `create_finding`.
 
-## Key Files
-- `scripts/run_cycle.py` — orchestrator, run this first each cycle
-- `scripts/utils.py` — data loading, world model I/O
-- `scripts/mcts.py` — Monte Carlo Tree Search for experiment selection
-- `scripts/generators.py` — dynamic hypothesis/method generation
-- `world_model/hypotheses.json` — hypothesis state and convergence
-- `world_model/exploration_map.json` — method × hypothesis grid
+### Step 5: Accept/reject generation proposals
+If the prompt shows HYPOTHESIS or METHOD proposals, write response JSON to `world_model/generation_responses/`.
 
-## Data
-CERES EBAF-TOA Ed4.2.1 satellite data (2000-2025, 14.3M rows). 
-Must be downloaded separately — see README.md.
+### Step 6: Loop back to Step 1
 
-## Rules
-- Always record findings with `create_finding()` — every claim must be traceable
-- Use any Python library or method you choose
-- Follow surprising leads aggressively
-- MCTS recommendation is a suggestion, not a command
+## Theory Synthesis Phase
+
+When all hypotheses converge, the system transitions to SYNTHESIZING. The prompt will show detailed instructions. You must:
+
+1. **Propose a theory** — a unified mechanism explaining WHY albedo is stable, not just a summary of findings
+2. **Critique it yourself** — list every logical gap, unsupported claim, or weakness
+3. **Revise** — fix the gaps, re-critique, repeat until self-rated ≥ 8/10
+4. **Save** to `world_model/theory.json`
+
+The theory must:
+- Be consistent with all confirmed evidence
+- Explain causal mechanisms (not just correlations)
+- Make 2+ new testable predictions
+- State what would falsify it
+- Address inconclusive hypotheses honestly
+
+## Complete Phase
+
+When the theory is saved with rating ≥ 8, the system auto-generates a PPTX presentation and marks research complete.
+
+## Key Rules
+- NEVER record a finding without running adversarial self-checks
+- Every finding summary should mention which adversarial checks passed
+- MCTS recommendation is a suggestion — override with reasoning if needed
 - You can propose new hypotheses or methods at any time
+- A theory is NOT a summary — it's a MECHANISM with PREDICTIONS

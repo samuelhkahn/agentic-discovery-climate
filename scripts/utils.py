@@ -393,15 +393,15 @@ def check_convergence():
 
     all_converged = len(unresolved) == 0
 
-    # Determine phase
+    # Determine phase from meta state
     current_state = meta.get("convergence_state", "exploring")
 
     if current_state == "complete":
         phase = "complete"
-    elif current_state == "adversarial":
-        phase = "adversarial"
+    elif current_state == "synthesizing":
+        phase = "synthesizing"
     elif all_converged:
-        phase = "adversarial"  # Auto-transition when all converge
+        phase = "synthesizing"  # Auto-transition when all converge
     else:
         phase = "exploring"
 
