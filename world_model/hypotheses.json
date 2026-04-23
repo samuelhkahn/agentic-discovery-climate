@@ -5,89 +5,68 @@
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
       "status": "testing",
-      "confidence": 0.8,
+      "confidence": 0.0,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
-      "supporting_evidence": [
-        "E001",
-        "E005",
-        "E015",
-        "E022",
-        "E024"
-      ],
+      "supporting_evidence": [],
       "refuting_evidence": [],
       "testable_predictions": [
         {
           "id": "P001",
           "prediction": "Cloud area fraction inversely and causally responds to surface albedo perturbations",
           "tested_by": [],
-          "untested_methods": [
-            "convergent_cross_mapping",
-            "granger_causality",
-            "transfer_entropy"
-          ],
+          "untested_methods": [],
           "current_result": null,
           "needs": "causal evidence"
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 5,
+        "methods_confirming": 0,
         "methods_refuting": 0,
-        "methods_null": 2,
+        "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 2,
-        "min_subsets_for_convergence": 2,
-        "confidence": 0.92
-      },
-      "history": [
-        {
-          "cycle": 0,
-          "status": "testing",
-          "rationale": "Initial hypothesis from Nature paper"
-        }
-      ]
-    },
-    {
-      "id": "H002",
-      "name": "Invariant Earth System Properties",
-      "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales (physical constants, geometry, water optical properties).",
-      "status": "converged",
-      "confidence": 0.54,
-      "source": "Feldman et al. (2026) Nature paper",
-      "supporting_evidence": [
-        "E003",
-        "E011",
-        "E013",
-        "E021",
-        "E023"
-      ],
-      "refuting_evidence": [],
-      "testable_predictions": [
-        {
-          "id": "P005",
-          "prediction": "Physical constants analytically constrain albedo to the observed ~29% range",
-          "tested_by": [],
-          "untested_methods": [
-            "symbolic_regression",
-            "attractor_reconstruction",
-            "variance_decomposition"
-          ],
-          "current_result": null,
-          "needs": "analytical or data-driven constraint analysis"
-        }
-      ],
-      "convergence_metrics": {
-        "methods_confirming": 5,
-        "methods_refuting": 0,
-        "methods_null": 1,
-        "min_methods_for_convergence": 5,
-        "data_subsets_tested": 2,
+        "data_subsets_tested": 0,
         "min_subsets_for_convergence": 2
       },
       "history": [
         {
           "cycle": 0,
           "status": "testing",
-          "rationale": "Initial hypothesis from Nature paper"
+          "rationale": "Initial hypothesis"
+        }
+      ]
+    },
+    {
+      "id": "H002",
+      "name": "Invariant Earth System Properties",
+      "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales.",
+      "status": "testing",
+      "confidence": 0.0,
+      "source": "Feldman et al. (2026) Nature paper",
+      "supporting_evidence": [],
+      "refuting_evidence": [],
+      "testable_predictions": [
+        {
+          "id": "P005",
+          "prediction": "Physical constants constrain albedo to the observed ~29% range",
+          "tested_by": [],
+          "untested_methods": [],
+          "current_result": null,
+          "needs": "constraint analysis"
+        }
+      ],
+      "convergence_metrics": {
+        "methods_confirming": 0,
+        "methods_refuting": 0,
+        "methods_null": 0,
+        "min_methods_for_convergence": 5,
+        "data_subsets_tested": 0,
+        "min_subsets_for_convergence": 2
+      },
+      "history": [
+        {
+          "cycle": 0,
+          "status": "testing",
+          "rationale": "Initial hypothesis"
         }
       ]
     },
@@ -95,98 +74,34 @@
       "id": "H003",
       "name": "Teleconnections",
       "statement": "Hemispheric albedo symmetry is maintained by spatial teleconnections \u2014 cross-regional and cross-hemispheric correlations in cloud, aerosol, and surface albedo fields that actively couple distant regions.",
-      "status": "converged",
-      "confidence": 0.88,
-      "source": "Feldman et al. (2026) Nature paper; U-Net analysis",
-      "supporting_evidence": [
-        "E002",
-        "E006",
-        "E008",
-        "E016",
-        "E018"
-      ],
+      "status": "testing",
+      "confidence": 0.0,
+      "source": "Feldman et al. (2026) Nature paper",
+      "supporting_evidence": [],
       "refuting_evidence": [],
       "testable_predictions": [
         {
           "id": "P009",
-          "prediction": "NH-mean and SH-mean albedo anomaly time series are significantly correlated",
+          "prediction": "NH and SH albedo anomalies are significantly correlated",
           "tested_by": [],
-          "untested_methods": [
-            "transfer_entropy",
-            "wavelet_coherence",
-            "climate_networks",
-            "granger_causality"
-          ],
+          "untested_methods": [],
           "current_result": null,
           "needs": "hemispheric coupling analysis"
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 5,
+        "methods_confirming": 0,
         "methods_refuting": 0,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 2,
+        "data_subsets_tested": 0,
         "min_subsets_for_convergence": 2
       },
       "history": [
         {
           "cycle": 0,
           "status": "testing",
-          "rationale": "Initial hypothesis from Nature paper"
-        }
-      ]
-    },
-    {
-      "id": "H004",
-      "name": "Coupled Low-Dimensional Hemispheric Oscillator",
-      "statement": "Earth's global TOA albedo stability arises from a coupled low-dimensional dynamical system: the NH and SH albedo anomaly subsystems each occupy ~2-dimensional manifolds, but their cross-hemispheric coupling (SH driving NH at sub-annual lags) reduces the effective dimensionality of the global system below 2 (observed: 1.86). This hemispheric coupling acts as a dimensionality-reducing constraint \u2014 correlated hemispheric responses to external forcing collapse the state space, explaining why global albedo is even more stable than either hemisphere alone.",
-      "status": "converged",
-      "confidence": 0.74,
-      "source": "agent_generated",
-      "agent_generated": true,
-      "generated_cycle": 4,
-      "prune_deadline_cycle": 7,
-      "supporting_evidence": [
-        "E007",
-        "E009",
-        "E010",
-        "E017",
-        "E019",
-        "E020"
-      ],
-      "refuting_evidence": [],
-      "testable_predictions": [
-        {
-          "id": "P001",
-          "prediction": "The principal components of a joint NH+SH phase space have a dominant first component capturing >80% of variance, with the second component capturing the hemispheric asymmetry"
-        },
-        {
-          "id": "P002",
-          "prediction": "Granger causality from SH to NH albedo anomalies is significant at 3-6 month lags, while the reverse is weaker \u2014 confirming the asymmetric coupling direction from transfer entropy"
-        },
-        {
-          "id": "P003",
-          "prediction": "The mutual information between NH and SH albedo anomalies (at lag 3 months) exceeds what would be expected from independent 2D attractors, indicating genuine cross-hemispheric coupling"
-        },
-        {
-          "id": "P004",
-          "prediction": "A 2-variable coupled system model (NH+SH as state variables) can reproduce the observed global correlation dimension of ~1.86 better than a single-variable model"
-        }
-      ],
-      "convergence_metrics": {
-        "methods_confirming": 6,
-        "methods_refuting": 0,
-        "methods_null": 0,
-        "min_methods_for_convergence": 3,
-        "data_subsets_tested": 2,
-        "min_subsets_for_convergence": 1
-      },
-      "history": [
-        {
-          "cycle": 4,
-          "status": "testing",
-          "rationale": "Agent-generated hypothesis"
+          "rationale": "Initial hypothesis"
         }
       ]
     }

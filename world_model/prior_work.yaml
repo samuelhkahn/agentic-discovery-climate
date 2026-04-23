@@ -89,6 +89,34 @@ prior_work:
       result: "OBSERVED DEGRADATION"
       details: "Bias increases to -0.002 and RMSE to 0.004 after 4 years withheld"
 
+  available_data:
+    - name: "CERES EBAF-TOA Ed4.2.1"
+      period: "2000-03 to 2025-03 (301 months)"
+      rows: "14.3 million"
+      variables: "TOA albedo, cloud area, cloud tau, SW/LW fluxes, solar"
+      loader: "from utils import load_ceres_data, compute_monthly_hemispheric_timeseries"
+
+    - name: "MERRA-2 M2TMNXRAD (monthly radiation)"
+      period: "1980-01 to 2025-12 (547 files, 23 GB)"
+      resolution: "0.625° x 0.5°"
+      key_variables:
+        - "ALBEDO — surface albedo (NOT in CERES-TOA)"
+        - "CLDTOT/CLDLOW/CLDMID/CLDHGH — cloud fraction by layer"
+        - "TAUTOT/TAULOW/TAUMID/TAUHGH — cloud optical depth by layer"
+        - "TS — surface skin temperature"
+        - "SWTDN/SWTNT — TOA SW fluxes (compute albedo = 1 - SWTNT/SWTDN)"
+        - "SWTNTCLR — clear-sky TOA SW (cloud radiative effect)"
+        - "SWTNTCLN — no-aerosol TOA SW (aerosol effect isolation)"
+      loader: "from utils import compute_merra2_albedo_timeseries, load_merra2_monthly"
+      unlocks:
+        - "Pinatubo eruption response (1991) — natural experiment for cloud buffering"
+        - "Pre-CERES era baseline (1980-2000) — was symmetry present before satellites?"
+        - "Surface albedo — test cloud vs surface contributions"
+        - "Cloud by layer — which cloud types matter for buffering?"
+        - "Temperature-albedo feedback chain via skin temperature"
+        - "Aerosol isolation via clear-sky/no-aerosol flux variants"
+        - "Independent cross-validation of CERES results (different data source)"
+
   gaps_identified:
     - "No causal inference methods (only correlational/attributional)"
     - "No information-theoretic analysis (transfer entropy, mutual information)"

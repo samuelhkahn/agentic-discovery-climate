@@ -136,12 +136,21 @@ INSTRUCTIONS:
    - Address any inconclusive hypotheses honestly
    - Be falsifiable — state what observation would disprove it
 
-3. After writing the theory, CRITIQUE it yourself:
+3. LITERATURE VALIDATION — search for published papers that:
+   - Support or contradict your proposed mechanisms
+   - Have tested similar theories in other climate contexts
+   - Provide physical/theoretical basis for your causal claims
+   Use WebSearch to find relevant papers. Cite specific papers in the theory.
+   If literature contradicts a claim, revise the theory to address it.
+
+4. After writing the theory, CRITIQUE it yourself:
    - List every logical gap or unsupported claim
    - For each gap, state what evidence would fill it
+   - Check: is each causal claim supported by BOTH data AND literature?
    - Rate the theory's strength (1-10)
 
-4. If there are gaps (rating < 8), REVISE the theory to address them.
+5. If there are gaps (rating < 8), REVISE the theory to address them.
+   For each revision, do another literature search on the revised claims.
    Repeat the critique-revise loop until rating ≥ 8 or you've done 50 iterations.
 
 5. Save the final theory to: world_model/theory.json
@@ -149,6 +158,13 @@ INSTRUCTIONS:
    {{
      "theory_statement": "The unified theory...",
      "key_mechanisms": ["mechanism 1", "mechanism 2", ...],
+     "supporting_literature": [
+       {{"citation": "Author et al. (Year)", "finding": "what they found", "relevance": "how it supports this theory"}},
+       ...
+     ],
+     "contradicting_literature": [
+       {{"citation": "...", "finding": "...", "how_addressed": "how the theory accounts for this"}}
+     ],
      "new_predictions": [
        {{"prediction": "...", "test": "how to test it"}},
        ...

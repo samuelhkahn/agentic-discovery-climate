@@ -96,6 +96,80 @@ def load_merra2_timeseries(start_year=1980, end_year=2025):
     return ds
 
 
+def compute_merra2_albedo_timeseries(start_year=1980, end_year=2025):
+    """Compute monthly global/hemispheric albedo from MERRA-2.
+
+    MERRA-2 albedo = 1 - (SWTNT / SWTDN) where SWTNT is net and SWTDN is incoming.
+    Returns DataFrame with columns: year, month, date, global, NH, SH, surface_albedo.
+    """
+    import xarray as xr
+    import numpy as np
+    meta = _load_meta()
+    merra2_dir = Path(meta["data_paths"]["merra2_dir"])
+
+    results = []
+    for year in range(start_year, end_year + 1):
+        if year <= 1991: stream = 100
+        elif year <= 2000: stream = 200
+        elif year <= 2010: stream = 300
+        else: stream = 400
+
+        for month in range(1, 13):
+            filename = f"MERRA2_{stream}.tavgM_2d_rad_Nx.{year}{month:02d}.nc4"
+            path = merra2_dir / filename
+            if not path.exists():
+                continue
+
+            try:
+                ds = xr.open_dataset(path)
+                # TOA albedo = 1 - (SWTNT / SWTDN)
+                swtdn = ds["SWTDN"].values[0]  # (lat, lon)
+                swtnt = ds["SWTNT"].values[0]
+                lat = ds["lat"].values
+
+                # Avoid division by zero (polar night)
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    toa_albedo = np.where(swtdn > 0, 1.0 - swtnt / swtdn, np.nan)
+
+                # Cosine latitude weights
+                cos_lat = np.cos(np.deg2rad(lat))
+                weights = np.broadcast_to(cos_lat[:, np.newaxis], toa_albedo.shape)
+
+                # Terminator filter (|lat| < 66)
+                mask = np.abs(lat) < 66
+                nh_mask = (lat > 0) & (lat < 66)
+                sh_mask = (lat < 0) & (lat > -66)
+
+                def weighted_mean(data, w, lat_mask):
+                    d = data[lat_mask]
+                    ww = w[lat_mask]
+                    valid = ~np.isnan(d)
+                    if valid.sum() == 0:
+                        return np.nan
+                    return np.average(d[valid], weights=ww[valid])
+
+                # Surface albedo
+                surf_alb = ds["ALBEDO"].values[0]
+
+                results.append({
+                    "year": year, "month": month,
+                    "global": weighted_mean(toa_albedo, weights, mask),
+                    "NH": weighted_mean(toa_albedo, weights, nh_mask),
+                    "SH": weighted_mean(toa_albedo, weights, sh_mask),
+                    "surface_albedo": weighted_mean(surf_alb, weights, mask),
+                    "cloud_total": weighted_mean(ds["CLDTOT"].values[0], weights, mask),
+                    "cloud_low": weighted_mean(ds["CLDLOW"].values[0], weights, mask),
+                    "skin_temp": weighted_mean(ds["TS"].values[0], weights, mask),
+                })
+                ds.close()
+            except Exception:
+                continue
+
+    ts = pd.DataFrame(results).sort_values(["year", "month"]).reset_index(drop=True)
+    ts["date"] = pd.to_datetime(ts[["year", "month"]].assign(day=15))
+    return ts
+
+
 def compute_weighted_hemispheric_means(df, value_col="toa_alb_all_mon"):
     """Compute area-weighted hemispheric means from gridded data."""
     weights = load_zone_weights()

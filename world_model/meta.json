@@ -1,8 +1,8 @@
 {
   "project": "Agentic Discovery Climate: AI Scientist for Earth's Albedo Stability",
-  "version": "0.2.0",
-  "current_cycle": 17,
-  "status": "idle",
+  "version": "0.3.0",
+  "current_cycle": 0,
+  "status": "initialized",
   "created": "2026-04-23",
   "data_paths": {
     "ceres_parquet_1": "../data/ceres.parquet.gzip",
@@ -11,7 +11,7 @@
     "zone_weights": "../data/zone_weights_lou.txt",
     "ffnn_checkpoint": "../data/albedo_ffnn_5layer_relu_v0_66_terminator.pth",
     "merra2_dir": "../data/MERRA2",
-    "_note": "Paths are relative to repo root. See README.md for data download instructions."
+    "_note": "CERES (2000-2025) + MERRA-2 (1980-2025). See README.md."
   },
   "hypotheses_active": [
     "H001_cloud_buffering",
@@ -19,8 +19,8 @@
     "H003_teleconnections"
   ],
   "hypotheses_resolved": [],
-  "total_findings": 24,
+  "total_findings": 0,
   "total_literature_items": 0,
   "exploration_coverage": 0.0,
-  "convergence_state": "synthesizing"
+  "convergence_state": "exploring"
 }

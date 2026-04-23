@@ -71,9 +71,42 @@ The theory must:
 
 When the theory is saved with rating ≥ 8, the system auto-generates a PPTX presentation and marks research complete.
 
+## Available Data Sources
+
+You MUST consider ALL data sources when designing experiments:
+
+### CERES EBAF-TOA Ed4.2.1 (primary)
+```python
+from utils import load_ceres_data, compute_monthly_hemispheric_timeseries
+df = load_ceres_data()  # 14.3M rows, 2000-2025
+ts = compute_monthly_hemispheric_timeseries()  # 301 monthly means
+```
+Variables: TOA albedo, cloud area/tau, SW/LW fluxes, solar
+
+### MERRA-2 M2TMNXRAD (1980-2025, includes Pinatubo)
+```python
+from utils import compute_merra2_albedo_timeseries, load_merra2_monthly
+ts_merra = compute_merra2_albedo_timeseries(1980, 2025)  # 547 months
+ds = load_merra2_monthly(1991, 6)  # Single month, full grid
+```
+Variables NOT in CERES: surface albedo, cloud by layer (low/mid/high),
+cloud tau by layer, skin temperature, clear-sky/no-aerosol flux variants.
+
+**Key advantages of MERRA-2:**
+- Pinatubo eruption (June 1991) — natural experiment for cloud buffering
+- Pre-CERES baseline (1980-2000) — 20 extra years
+- Surface albedo — decompose TOA into surface + cloud + aerosol
+- Cloud by layer — which cloud types buffer?
+- Independent data source for cross-validation
+
+### NOAA ONI (Nino3.4 index)
+Downloaded on-the-fly from NOAA CPC during analyses.
+
 ## Key Rules
 - NEVER record a finding without running adversarial self-checks
 - Every finding summary should mention which adversarial checks passed
 - MCTS recommendation is a suggestion — override with reasoning if needed
 - You can propose new hypotheses or methods at any time
 - A theory is NOT a summary — it's a MECHANISM with PREDICTIONS
+- Use BOTH CERES and MERRA-2 data — findings confirmed across both sources are stronger
+- MERRA-2's 1980-2000 data is critical for pre-satellite-era analysis and Pinatubo

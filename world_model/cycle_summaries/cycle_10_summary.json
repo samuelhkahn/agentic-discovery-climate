@@ -1,6 +1,0 @@
-{
-  "cycle": 10,
-  "timestamp": "2026-04-23T00:43:51.648279",
-  "summary": "Lagged regression null: cloud-albedo relationship is synchronous (concurrent), not lagged-predictable \u2014 all CV R\u00b2 < 0; consistent with CCM attractor coupling; H001 mechanism is same-month coupling",
-  "next_priorities": []
-}
