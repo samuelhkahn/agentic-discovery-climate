@@ -5,9 +5,7 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "completed",
-        "finding_id": "E021",
-        "result": "supports"
+        "status": "not_started"
       },
       "H002_invariant_properties": {
         "status": "not_started"
@@ -20,18 +18,14 @@
       "priority": 5,
       "differentiation": 5,
       "H001_cloud_buffering": {
-        "status": "not_started",
-        "finding_id": null,
-        "result": null
+        "status": "not_started"
       },
       "H002_invariant_properties": {
         "status": "not_applicable",
         "reason": "H002 is about constraints, not information flow"
       },
       "H003_teleconnections": {
-        "status": "completed",
-        "finding_id": "E001",
-        "result": "supports"
+        "status": "not_started"
       }
     },
     "predictive_information_decomposition": {
@@ -54,9 +48,7 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "completed",
-        "finding_id": "E004",
-        "result": "supports"
+        "status": "not_started"
       },
       "H003_teleconnections": {
         "status": "not_started"
@@ -73,9 +65,7 @@
         "reason": "Not frequency-domain relevant"
       },
       "H003_teleconnections": {
-        "status": "completed",
-        "finding_id": "E002",
-        "result": "supports"
+        "status": "not_started"
       }
     },
     "climate_networks": {
@@ -88,9 +78,7 @@
         "status": "not_started"
       },
       "H003_teleconnections": {
-        "status": "completed",
-        "finding_id": "E006",
-        "result": "supports_weakly"
+        "status": "not_started"
       }
     },
     "bayesian_model_comparison": {
@@ -100,9 +88,7 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "completed",
-        "finding_id": "E015",
-        "result": "supports"
+        "status": "not_started"
       },
       "H003_teleconnections": {
         "status": "not_started"
@@ -115,9 +101,7 @@
         "status": "not_started"
       },
       "H002_invariant_properties": {
-        "status": "completed",
-        "finding_id": "E007",
-        "result": "supports"
+        "status": "not_started"
       },
       "H003_teleconnections": {
         "status": "not_applicable",
@@ -288,11 +272,9 @@
   },
   "summary": {
     "total_cells": 85,
-    "explored": 7,
-    "not_started": 78,
-    "not_applicable": 7,
-    "in_progress": 0,
-    "completed": 0,
-    "coverage": 0.082
+    "explored": 0,
+    "not_started": 24,
+    "not_applicable": 61,
+    "coverage": 0.0
   }
 }

@@ -4,107 +4,31 @@
       "id": "H001",
       "name": "Cloud Buffering",
       "statement": "Earth's globally-averaged albedo maintains its stability and symmetry through cloud buffering: clouds scattering compensates variations in surface albedo and aerosols that would otherwise impact albedo.",
-      "status": "supported",
-      "confidence": 0.85,
+      "status": "testing",
+      "confidence": 0.0,
       "source": "Stephens et al. (2015); Feldman et al. (2026) Nature paper",
-      "supporting_evidence": [
-        "prior_perturbation_caf_surface_albedo",
-        "E008",
-        "E010",
-        "E011",
-        "E013",
-        "E021"
-      ],
+      "supporting_evidence": [],
       "refuting_evidence": [],
       "testable_predictions": [
         {
           "id": "P001",
           "prediction": "Cloud area fraction inversely and causally responds to surface albedo perturbations",
-          "tested_by": [
-            "FFNN perturbation (existing)"
-          ],
-          "untested_methods": [
-            "convergent_cross_mapping",
-            "granger_causality",
-            "instrumental_variables",
-            "transfer_entropy"
-          ],
-          "current_result": "correlational support (FFNN perturbation shows inverse response)",
-          "needs": "causal evidence beyond correlation"
-        },
-        {
-          "id": "P002",
-          "prediction": "After volcanic AOD increases, cloud radiative effects decrease to partially compensate",
           "tested_by": [],
-          "untested_methods": [
-            "instrumental_variables",
-            "synthetic_control",
-            "interrupted_time_series"
-          ],
+          "untested_methods": ["convergent_cross_mapping", "granger_causality", "transfer_entropy"],
           "current_result": null,
-          "needs": "formal statistical test using Pinatubo as natural experiment"
-        },
-        {
-          "id": "P003",
-          "prediction": "Hemispheric cloud response is asymmetric to cross-hemisphere perturbations",
-          "tested_by": [
-            "FFNN hemisphere perturbation (existing)"
-          ],
-          "untested_methods": [
-            "transfer_entropy_NH_SH",
-            "wavelet_coherence",
-            "climate_networks"
-          ],
-          "current_result": "partial support from perturbation experiments",
-          "needs": "information-theoretic and network analysis"
-        },
-        {
-          "id": "P004",
-          "prediction": "Cloud buffering is stronger over oceans (marine boundary layer) than over land",
-          "tested_by": [],
-          "untested_methods": [
-            "stratified_SHAP",
-            "regime_switching_regression",
-            "ICA"
-          ],
-          "current_result": null,
-          "needs": "ocean vs land stratified analysis"
+          "needs": "causal evidence"
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 5,
+        "methods_confirming": 0,
         "methods_refuting": 0,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 3,
+        "data_subsets_tested": 0,
         "min_subsets_for_convergence": 2
       },
       "history": [
-        {
-          "cycle": 0,
-          "status": "testing",
-          "rationale": "Prior FFNN perturbation work provides correlational support; causal evidence needed"
-        },
-        {
-          "cycle": 11,
-          "status": "supported",
-          "rationale": "5th method (regime switching) confirms cloud buffering across all regimes. H001 CONVERGED: 5/5 methods, 3/2 subsets."
-        },
-        {
-          "cycle": 17,
-          "status": "supported",
-          "rationale": "Adversarial: unidirectional claim weakened (ENSO confound makes it bidirectional). But cloud\u2192albedo slope never reverses and persists across temporal scales. H001 mechanism is real but it's FEEDBACK, not one-way buffering."
-        },
-        {
-          "cycle": 18,
-          "status": "supported",
-          "rationale": "After Bonferroni correction: 3 methods survive. After adversarial testing: see cycles 15-17."
-        },
-        {
-          "cycle": 19,
-          "status": "supported",
-          "rationale": "Fixed CCM confirms unidirectional nonlinear causality: cloud\u2192albedo. Overrides adversarial Granger bidirectional finding (linear artifact). Strongest causal evidence for H001."
-        }
+        {"cycle": 0, "status": "testing", "rationale": "Initial hypothesis from Nature paper"}
       ]
     },
     {
@@ -112,236 +36,61 @@
       "name": "Invariant Earth System Properties",
       "statement": "Earth's TOA albedo stability and hemispheric symmetry result from properties of the Earth system at the surface and in the troposphere that are invariant on 21st Century timescales (physical constants, geometry, water optical properties).",
       "status": "testing",
-      "confidence": 0.5,
+      "confidence": 0.0,
       "source": "Feldman et al. (2026) Nature paper",
-      "supporting_evidence": [
-        "prior_shap_latitude_importance",
-        "E004",
-        "E007",
-        "E014",
-        "E015",
-        "E016"
-      ],
-      "refuting_evidence": [
-        "E010",
-        "E017"
-      ],
+      "supporting_evidence": [],
+      "refuting_evidence": [],
       "testable_predictions": [
         {
           "id": "P005",
-          "prediction": "Physical constants (Clausius-Clapeyron, water optics, geometry) analytically constrain albedo to the observed ~29% range",
+          "prediction": "Physical constants analytically constrain albedo to the observed ~29% range",
           "tested_by": [],
-          "untested_methods": [
-            "symbolic_regression",
-            "analytical_calculation",
-            "sensitivity_analysis"
-          ],
+          "untested_methods": ["symbolic_regression", "attractor_reconstruction", "variance_decomposition"],
           "current_result": null,
-          "needs": "analytical derivation + comparison with observed range"
-        },
-        {
-          "id": "P006",
-          "prediction": "Invariant-linked features (lat, lon, month) explain >60% of albedo variance",
-          "tested_by": [],
-          "untested_methods": [
-            "variance_decomposition",
-            "separate_FFNN",
-            "PID"
-          ],
-          "current_result": null,
-          "needs": "partition features into invariant vs variable groups"
-        },
-        {
-          "id": "P007",
-          "prediction": "Removing latitude from FFNN causes disproportionate degradation (>3x vs any cloud variable)",
-          "tested_by": [
-            "U-Net ablation (partial)"
-          ],
-          "untested_methods": [
-            "FFNN_ablation",
-            "permutation_importance"
-          ],
-          "current_result": "U-Net ablation shows latitude removal causes large RMSE increase",
-          "needs": "formal FFNN ablation with statistical comparison"
-        },
-        {
-          "id": "P008",
-          "prediction": "Temperature-LWP relationship follows Clausius-Clapeyron scaling (~7%/K)",
-          "tested_by": [],
-          "untested_methods": [
-            "binned_regression",
-            "symbolic_regression",
-            "SINDy"
-          ],
-          "current_result": null,
-          "needs": "CERES LWP vs temperature analysis"
+          "needs": "analytical or data-driven constraint analysis"
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 3,
-        "methods_refuting": 3,
+        "methods_confirming": 0,
+        "methods_refuting": 0,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 3,
+        "data_subsets_tested": 0,
         "min_subsets_for_convergence": 2
       },
       "history": [
-        {
-          "cycle": 0,
-          "status": "testing",
-          "rationale": "SHAP shows latitude importance but no formal invariant properties test conducted"
-        },
-        {
-          "cycle": 4,
-          "status": "testing",
-          "rationale": "Low correlation dimension (1.86) supports invariant constraints. But marginally positive Lyapunov suggests stability requires external mechanism too."
-        },
-        {
-          "cycle": 9,
-          "status": "testing",
-          "rationale": "Linear variance decomposition shows invariant features explain <1% of gridded albedo. But this may reflect linear limitations \u2014 attractor analysis showed low dimensionality (nonlinear constraint)."
-        },
-        {
-          "cycle": 14,
-          "status": "supported",
-          "rationale": "5th method (HMM) confirms invariant constraints. H002 CONVERGED: 5/5 methods (attractor, symbolic regression, SINDy, Bayesian comparison, HMM), 3/2 subsets. Note: 1 refuting method (linear variance decomposition) but reconciled \u2014 invariant constraints operate NONLINEARLY."
-        },
-        {
-          "cycle": 15,
-          "status": "testing",
-          "rationale": "Adversarial testing invalidated 2 methods (HMM trivial, poly2 spatial confound). H002 back to 3/5. Needs 2 more genuine confirming methods."
-        },
-        {
-          "cycle": 18,
-          "status": "testing",
-          "rationale": "After Bonferroni correction: 3 methods survive. After adversarial testing: see cycles 15-17."
-        }
+        {"cycle": 0, "status": "testing", "rationale": "Initial hypothesis from Nature paper"}
       ]
     },
     {
       "id": "H003",
       "name": "Teleconnections",
-      "statement": "Hemispheric albedo symmetry is maintained by spatial teleconnections \u2014 cross-regional and cross-hemispheric correlations in cloud, aerosol, and surface albedo fields that actively couple distant regions.",
-      "status": "supported",
-      "confidence": 0.9,
+      "statement": "Hemispheric albedo symmetry is maintained by spatial teleconnections — cross-regional and cross-hemispheric correlations in cloud, aerosol, and surface albedo fields that actively couple distant regions.",
+      "status": "testing",
+      "confidence": 0.0,
       "source": "Feldman et al. (2026) Nature paper; U-Net analysis",
-      "supporting_evidence": [
-        "E001",
-        "E002",
-        "E003",
-        "E006",
-        "E009",
-        "E012"
-      ],
-      "refuting_evidence": [
-        "prior_unet_no_regional_control"
-      ],
+      "supporting_evidence": [],
+      "refuting_evidence": [],
       "testable_predictions": [
         {
           "id": "P009",
           "prediction": "NH-mean and SH-mean albedo anomaly time series are significantly correlated",
           "tested_by": [],
-          "untested_methods": [
-            "correlation_analysis",
-            "transfer_entropy",
-            "wavelet_coherence"
-          ],
+          "untested_methods": ["transfer_entropy", "wavelet_coherence", "climate_networks", "granger_causality"],
           "current_result": null,
-          "needs": "basic hemispheric anomaly correlation"
-        },
-        {
-          "id": "P010",
-          "prediction": "Spatial correlation maps reveal 3+ 'control regions' with r>0.3 to global mean",
-          "tested_by": [
-            "U-Net single-gridbox (NULL RESULT)"
-          ],
-          "untested_methods": [
-            "climate_networks",
-            "community_detection",
-            "network_centrality"
-          ],
-          "current_result": "U-Net found no discernible regional control structure",
-          "needs": "network-based analysis may reveal distributed (not localized) control"
-        },
-        {
-          "id": "P011",
-          "prediction": "Lagged correlations between regional albedo anomalies reveal energy transport pathways",
-          "tested_by": [],
-          "untested_methods": [
-            "lagged_cross_correlation",
-            "convergent_cross_mapping",
-            "spectral_granger"
-          ],
-          "current_result": null,
-          "needs": "time-lagged spatial analysis"
-        },
-        {
-          "id": "P012",
-          "prediction": "Seasonal vs interannual teleconnection structures differ",
-          "tested_by": [],
-          "untested_methods": [
-            "EOF_decomposition",
-            "wavelet_coherence",
-            "SSA"
-          ],
-          "current_result": null,
-          "needs": "separate seasonal cycle from interannual variability"
+          "needs": "hemispheric coupling analysis"
         }
       ],
       "convergence_metrics": {
-        "methods_confirming": 5,
-        "methods_refuting": 1,
+        "methods_confirming": 0,
+        "methods_refuting": 0,
         "methods_null": 0,
         "min_methods_for_convergence": 5,
-        "data_subsets_tested": 2,
+        "data_subsets_tested": 0,
         "min_subsets_for_convergence": 2
       },
       "history": [
-        {
-          "cycle": 0,
-          "status": "testing",
-          "rationale": "U-Net showed no regional control; but network methods may reveal distributed teleconnections"
-        },
-        {
-          "cycle": 1,
-          "status": "testing",
-          "rationale": "Transfer entropy shows significant bidirectional information flow between hemispheres (p<0.01 at lags 3-6 months). SH\u2192NH dominant at short lags, NH\u2192SH at annual lag. Contradicts U-Net null result \u2014 teleconnections exist but are distributed, not localized."
-        },
-        {
-          "cycle": 2,
-          "status": "testing",
-          "rationale": "Wavelet coherence corroborates transfer entropy. NH-SH coupling strongest at ENSO-band periods (24-60 months). SH leads NH at interannual timescales. Two independent methods now confirm teleconnections. Need one more method + second data subset for convergence."
-        },
-        {
-          "cycle": 3,
-          "status": "testing",
-          "rationale": "ENSO-conditional analysis reveals coupling is phase-dependent: SH\u2192NH significant only during La Ni\u00f1a (p=0.017). This identifies the MECHANISM: La Ni\u00f1a conditions activate cross-hemispheric information transfer. H003 now has 2 methods + 2 data subsets. Needs 1 more independent method."
-        },
-        {
-          "cycle": 6,
-          "status": "supported",
-          "rationale": "3rd independent method confirms teleconnections. Hub regions in tropical Pacific = ENSO mediation. 3 methods + 2 data subsets = CONVERGENCE CRITERIA MET."
-        },
-        {
-          "cycle": 7,
-          "status": "testing",
-          "rationale": "Convergence threshold raised to 5 independent methods. H003 has 3/5 \u2014 needs 2 more."
-        },
-        {
-          "cycle": 10,
-          "status": "supported",
-          "rationale": "5th independent method (ICA) confirms cross-hemispheric coupling. H003 CONVERGED at 5/5 methods + 2/2 subsets."
-        },
-        {
-          "cycle": 16,
-          "status": "supported",
-          "rationale": "Adversarial testing: H003 survives bootstrap, phase surrogates, and bin sensitivity (5/6 bins). Remains supported."
-        },
-        {
-          "cycle": 18,
-          "status": "supported",
-          "rationale": "After Bonferroni correction: 5 methods survive. After adversarial testing: see cycles 15-17."
-        }
+        {"cycle": 0, "status": "testing", "rationale": "Initial hypothesis from Nature paper"}
       ]
     }
   ]
