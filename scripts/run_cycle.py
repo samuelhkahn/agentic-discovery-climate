@@ -142,7 +142,7 @@ INSTRUCTIONS:
    - Rate the theory's strength (1-10)
 
 4. If there are gaps (rating < 8), REVISE the theory to address them.
-   Repeat the critique-revise loop until rating ≥ 8 or you've done 3 iterations.
+   Repeat the critique-revise loop until rating ≥ 8 or you've done 50 iterations.
 
 5. Save the final theory to: world_model/theory.json
    Format:
