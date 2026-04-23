@@ -104,6 +104,49 @@
           "rationale": "Initial hypothesis"
         }
       ]
+    },
+    {
+      "id": "H004",
+      "name": "Coupled Low-Dimensional Hemispheric Oscillator",
+      "statement": "Earth's global TOA albedo stability arises from a coupled low-dimensional dynamical system: the NH and SH albedo anomaly subsystems each occupy ~2-dimensional manifolds, but their cross-hemispheric coupling (SH driving NH at sub-annual lags) reduces the effective dimensionality of the global system below 2. This hemispheric coupling acts as a dimensionality-reducing constraint \u2014 correlated hemispheric responses to external forcing collapse the state space, explaining why global albedo is even more stable than either hemisphere alone.",
+      "status": "testing",
+      "confidence": 0.0,
+      "source": "Generated from prior run \u2014 combines H002 (low dimensionality) with H003 (hemispheric coupling)",
+      "supporting_evidence": [],
+      "refuting_evidence": [],
+      "testable_predictions": [
+        {
+          "id": "P001",
+          "prediction": "Joint NH+SH phase space has a dominant first PC capturing >80% of variance"
+        },
+        {
+          "id": "P002",
+          "prediction": "SH->NH Granger causality is significant at 3-6 month lags, stronger than NH->SH"
+        },
+        {
+          "id": "P003",
+          "prediction": "Mutual information between NH and SH exceeds what independent 2D attractors would produce"
+        },
+        {
+          "id": "P004",
+          "prediction": "A 2-variable coupled model (NH+SH) reproduces the observed global correlation dimension of ~1.86"
+        }
+      ],
+      "convergence_metrics": {
+        "methods_confirming": 0,
+        "methods_refuting": 0,
+        "methods_null": 0,
+        "min_methods_for_convergence": 5,
+        "data_subsets_tested": 0,
+        "min_subsets_for_convergence": 2
+      },
+      "history": [
+        {
+          "cycle": 0,
+          "status": "testing",
+          "rationale": "Seeded from prior run discovery \u2014 needs independent validation"
+        }
+      ]
     }
   ]
 }

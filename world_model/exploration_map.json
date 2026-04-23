@@ -334,10 +334,10 @@
     }
   },
   "summary": {
-    "total_cells": 85,
+    "total_cells": 48,
     "explored": 0,
-    "not_started": 78,
-    "not_applicable": 7,
+    "not_started": 45,
+    "not_applicable": 3,
     "coverage": 0.0
   }
 }
